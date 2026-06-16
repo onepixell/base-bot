@@ -1,79 +1,81 @@
-# Lazy Bot
+<div align="center">
+  <img src="https://avatars.githubusercontent.com/u/169166102?s=200&v=5" height="80" />
 
-> A modern, enterprise-scale WhatsApp bot framework powered by [Baileys](https://github.com/WhiskeySockets/Baileys), featuring a modular Plugin Architecture and a robust Command Line Interface (CLI).
 
-[Baca dalam Bahasa Indonesia (Read in Indonesian) 🇮🇩](./README.id.md)
+  <p><strong>A Next-Generation WhatsApp Bot Framework Built for Developers</strong></p>
+</div>
+
+---
+
+**Lazy Bot** is an enterprise-scale, highly modular WhatsApp bot framework powered by [Baileys](https://github.com/WhiskeySockets/Baileys). It brings modern backend development practices—like isolated plugins, automated database migrations, hot-reloading, and a robust CLI—straight to your WhatsApp bot development workflow.
+
+*(For detailed development tutorials, please refer to our upcoming official documentation).*
 
 ## ✨ Features
 
-- **Modular Plugin Architecture:** Build features in isolated namespaces (e.g., `@admin/leveling`). Turn on, turn off, or uninstall features without modifying the core system.
-- **Robust CLI:** Say goodbye to boilerplate. Use Laravel-like commands to generate structure:
-  - `make:plugin` - Scaffolds a new plugin.
-  - `make:command` & `make:event` - Creates bot interactions.
-  - `plugin:install` - Downloads plugins from the official registry.
-  - `plugin:migrate` - Runs dedicated database migrations for your plugin.
-- **Hot-Reloading:** Built-in Plugin Watcher reloads your code automatically on save. Develop without restarting the bot!
-- **Isolated Database Migrations:** Integrated with Knex.js. Each plugin has its own migration files.
-- **Multi-language Support (i18n):** Native support for localization, both for the bot's interactions and the CLI.
-- **Middlewares & Security:** Built-in layered middleware support for spam protection, admin checks, and more.
+- 🧩 **Modular Plugin Architecture:** Stop writing spaghetti code. Build features in isolated namespaces (e.g., `@admin/leveling`).
+- ⚡ **Hot-Reloading System:** Save your code and watch it update in real-time. No more restarting the bot during development.
+- 🛠️ **Developer-First CLI:** Generate boilerplate instantly using commands like `make:plugin`, `make:command`, or `make:migration`.
+- 🗄️ **Isolated Database Migrations:** Powered by **Knex.js**. Each plugin manages its own database tables automatically.
+- 🌍 **Native i18n Support:** Easily support multiple languages for your bot responses and CLI outputs.
+- 🛡️ **Middleware Layer:** Built-in middleware mechanism for spam protection, admin verification, and custom request filtering.
+- 📦 **Plugin Registry:** Download and install community plugins seamlessly via `plugin:install`.
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
-- Node.js (v18 or higher)
-- A running Database (MySQL, PostgreSQL, SQLite, etc. supported by Knex.js)
+## ⚙️ Requirements
 
-### Installation
+Before installing Lazy Bot, make sure your system meets the following requirements:
+- **Node.js** (v18.x or higher)
+- **Database Server** (MySQL, PostgreSQL, or SQLite - depending on your Knex configuration)
+- **Git**
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/lazy-bot.git
-   cd lazy-bot
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Setup your environment:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your database and session credentials
-   ```
-4. Start the bot:
-   ```bash
-   npm start
-   ```
+---
 
-## 🛠️ CLI Usage
+## 🚀 Installation
 
-Lazy Bot features an interactive CLI. Start it by running:
+Follow these simple steps to get your bot up and running:
+
+**1. Clone the repository**
 ```bash
-npm run cli
+git clone https://github.com/onepixell/base-bot.git
+cd base-bot
 ```
-Or use the commands directly:
+
+**2. Install dependencies**
 ```bash
-npm run cli -- make:plugin
-npm run cli -- make:migration
-npm run cli -- plugin:install @community/sticker-maker
-npm run cli -- plugin:migrate
+npm install
 ```
+
+---
+
+## 💻 How to Run & The Integrated CLI
+
+Unlike typical bots, **Lazy Bot features an integrated console (CLI)** 
+
+To start the bot and access the console:
+```bash
+npm start
+```
+
+Once the bot is running and connected, your terminal becomes an interactive command prompt. You can type commands directly into the running terminal:
+
+- `help` : Show all available commands.
+- `make:plugin` : Scaffolds a new plugin.
+- `make:command` : Creates a new command inside your plugin.
+- `plugin:install <name>` : Installs a plugin from the registry.
 
 ## 📦 Creating a Plugin
 
-Plugins are stored in the `workspace/` directory during development.
+During development, plugins are stored in the `workspace/` directory.
 
-1. Generate a plugin:
-   ```bash
-   npm run cli -- make:plugin
+1. Start the bot (`npm start`).
+2. In the active bot terminal, type:
+   ```text
+   make:plugin
    ```
-2. Generate a command inside your plugin:
-   ```bash
-   npm run cli -- make:command
-   ```
-3. Watch your changes apply instantly in development mode without restarting the bot!
-
-## 🤝 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+3. Follow the interactive prompts to generate your plugin.
+4. Keep the bot running! Modify your code and save. Your changes will apply instantly via the **hot-reloading** system.
 
 ## 📜 License
 Distributed under the MIT License. See `LICENSE` for more information.
