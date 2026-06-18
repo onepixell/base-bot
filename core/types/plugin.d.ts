@@ -13,6 +13,15 @@ declare global {
     interface PluginDataExtensions {
     }
 }
+export interface PluginLogger {
+    info: (...args: any[]) => void;
+    warn: (...args: any[]) => void;
+    error: (...args: any[]) => void;
+    success: (...args: any[]) => void;
+    ready: (...args: any[]) => void;
+    debug: (...args: any[]) => void;
+    fatal: (...args: any[]) => void;
+}
 export interface PluginManifest {
     name: string;
     version: string;
@@ -33,6 +42,7 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
         isGroup: boolean;
         isText: boolean;
         isSticker: boolean;
+        isAnimated: boolean;
         isImage: boolean;
         isVideo: boolean;
         isAudio: boolean;
@@ -80,6 +90,7 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
             isGroup: boolean;
             isText: boolean;
             isSticker: boolean;
+            isAnimated: boolean;
             isImage: boolean;
             isVideo: boolean;
             isAudio: boolean;
@@ -105,6 +116,26 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
     commands: any[];
     plugins: PluginDataExtensions & Record<string, any>;
     downloadMedia: (WAMessage?: WAMessage) => Promise<Buffer>;
+    reply: (text: string) => Promise<any>;
+    sendImage: (image: Buffer | {
+        url: string;
+    }, caption?: string) => Promise<any>;
+    sendVideo: (video: Buffer | {
+        url: string;
+    }, caption?: string) => Promise<any>;
+    sendAudio: (audio: Buffer | {
+        url: string;
+    }, ptt?: boolean) => Promise<any>;
+    sendDocument: (document: Buffer | {
+        url: string;
+    }, options?: any) => Promise<any>;
+    sendSticker: (sticker: Buffer | {
+        url: string;
+    }) => Promise<any>;
+    react: (emoji: string) => Promise<any>;
+    delete: () => Promise<any>;
+    raw: WAMessage;
+    sock: WASocket;
 }
 export interface CommandContext {
     sock: WASocket;
@@ -119,6 +150,7 @@ export interface CommandContext {
         get: (configPath: string) => any;
         set: (configPath: string, newData: any) => Promise<void>;
     };
+    logger: PluginLogger;
     getPluginMsg: (path?: string) => any;
     setPluginMsg: (path: string, value: any, position?: number) => void;
 }
@@ -126,10 +158,12 @@ export interface Command extends CommandExtensions {
     name: string;
     aliases?: string[];
     description?: string;
+    label?: string;
     execute: (ctx: CommandContext) => Promise<void> | void;
 }
 export interface MiddlewareContext<T extends keyof BaileysEventMap | 'command'> {
     sock: WASocket;
+    db: Knex;
     payload: T extends keyof BaileysEventMap ? BaileysEventMap[T] : SerializedMessage;
     eventName: string;
     plugin: {
@@ -137,6 +171,11 @@ export interface MiddlewareContext<T extends keyof BaileysEventMap | 'command'> 
     } & PluginManifest;
     t: (path: string, params?: Record<string, any>) => string;
     cache: CacheService;
+    config: {
+        get: (configPath: string) => any;
+        set: (configPath: string, newData: any) => Promise<void>;
+    };
+    logger: PluginLogger;
     getPluginMsg: (path?: string) => any;
     setPluginMsg: (path: string, val: any, pos?: number) => void;
     next: () => boolean;
@@ -153,11 +192,18 @@ export interface Middleware<T extends keyof BaileysEventMap | 'command' = keyof 
 }
 export interface EventContext<T extends keyof BaileysEventMap> {
     sock: WASocket;
+    db: Knex;
     eventData: BaileysEventMap[T];
     cache: CacheService;
-    manifest: {
+    plugin: {
         key: string;
     } & PluginManifest;
+    t: (path: string, params?: Record<string, any>) => string;
+    config: {
+        get: (configPath: string) => any;
+        set: (configPath: string, newData: any) => Promise<void>;
+    };
+    logger: PluginLogger;
 }
 export interface Event<T extends keyof BaileysEventMap = keyof BaileysEventMap> extends EventExtensions {
     event: T;

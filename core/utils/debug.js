@@ -7,7 +7,9 @@ function getCallerInfo() {
         const callerLine = stack[3];
         const match = callerLine.match(/at\s+(?:.*\s+\()?(?:file:\/\/)?(.+:\d+:\d+)\)?/);
         if (match && match[1]) {
-            return match[1];
+            let callerPath = match[1];
+            callerPath = callerPath.replace(/\/\.([^\/]+?)_\d+\.tmp\.js/g, '/$1.js');
+            return callerPath;
         }
     }
     return 'Unknown location';

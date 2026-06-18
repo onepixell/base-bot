@@ -1,5 +1,6 @@
 {
   "name": "@workspace/{{pluginName}}",
+  "type": "module",
   "version": "1.0.0",
   "description": "Description for {{name}}",
   "author": "{{namespace}}",

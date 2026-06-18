@@ -15,6 +15,15 @@ declare class PluginManager {
     private _cachedEvents;
     constructor();
     private getLogPrefix;
+    getLogger(pluginKey: string): {
+        info: (...args: any[]) => void;
+        warn: (...args: any[]) => void;
+        error: (...args: any[]) => void;
+        success: (...args: any[]) => void;
+        ready: (...args: any[]) => void;
+        debug: (...args: any[]) => void;
+        fatal: (...args: any[]) => void;
+    };
     load(isReload?: boolean): Promise<void>;
     reloadPlugin(pluginKey: string): Promise<void>;
     private cleanupPluginData;

@@ -8,6 +8,11 @@ export declare const databaseConfig: {
             password: string | undefined;
             database: string | undefined;
         };
+        migrations: {
+            directory: string;
+            tableName: string;
+            loadExtensions: string[];
+        };
     };
     sqlite: {
         client: string;
@@ -15,5 +20,10 @@ export declare const databaseConfig: {
             filename: string;
         };
         useNullAsDefault: boolean;
+        migrations: {
+            directory: string;
+            tableName: string;
+            loadExtensions: string[];
+        };
     };
 };

@@ -11,6 +11,13 @@ declare const _default: {
     DB_CONNECTION: "sqlite" | "mysql";
     DB_PORT: number;
     WA_SESSION_NAME: string;
+    STORE_ENABLED: boolean;
+    STORE_CHATS: boolean;
+    STORE_CONTACTS: boolean;
+    STORE_GROUPS: boolean;
+    STORE_MESSAGES: boolean;
+    STORE_MESSAGE_RETENTION_DAYS: number;
+    STORE_BATCH_INTERVAL_MS: number;
     REDIS_URL?: string | undefined;
     DB_HOST?: string | undefined;
     DB_USER?: string | undefined;

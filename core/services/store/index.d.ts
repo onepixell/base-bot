@@ -1,0 +1,10 @@
+import { WASocket } from 'baileys';
+export declare const bindStore: (sock: WASocket) => void;
+export declare const getName: (jid: string) => Promise<string | null>;
+export declare const getGroupName: (jid: string) => Promise<string | null>;
+export declare const loadMessages: (jid: string, count: number, _cursor?: any) => Promise<any[]>;
+export declare const loadMessage: (jid: string, id: string) => Promise<any>;
+export declare const mostRecentMessage: (jid: string) => Promise<any>;
+export declare const fetchImageUrl: (jid: string, sock: WASocket) => Promise<string | undefined>;
+export declare const fetchGroupMetadata: (jid: string, sock: WASocket) => Promise<any>;
+export declare const getChats: () => Promise<any[]>;

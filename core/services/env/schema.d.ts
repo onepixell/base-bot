@@ -25,5 +25,12 @@ export declare const envSchema: z.ZodObject<{
     DB_PASSWORD: z.ZodOptional<z.ZodString>;
     DB_DATABASE: z.ZodOptional<z.ZodString>;
     WA_SESSION_NAME: z.ZodDefault<z.ZodString>;
+    STORE_ENABLED: z.ZodDefault<z.ZodPipe<z.ZodTransform<boolean, unknown>, z.ZodBoolean>>;
+    STORE_CHATS: z.ZodDefault<z.ZodPipe<z.ZodTransform<boolean, unknown>, z.ZodBoolean>>;
+    STORE_CONTACTS: z.ZodDefault<z.ZodPipe<z.ZodTransform<boolean, unknown>, z.ZodBoolean>>;
+    STORE_GROUPS: z.ZodDefault<z.ZodPipe<z.ZodTransform<boolean, unknown>, z.ZodBoolean>>;
+    STORE_MESSAGES: z.ZodDefault<z.ZodPipe<z.ZodTransform<boolean, unknown>, z.ZodBoolean>>;
+    STORE_MESSAGE_RETENTION_DAYS: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
+    STORE_BATCH_INTERVAL_MS: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
 }, z.core.$strip>;
 export type Env = z.infer<typeof envSchema>;

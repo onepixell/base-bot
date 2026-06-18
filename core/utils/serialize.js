@@ -6,6 +6,62 @@ const MEDIA_TYPE = [
     'documentMessage',
     'stickerMessage',
 ];
+export class MessageContext {
+    key;
+    chat;
+    fromMe;
+    flags;
+    bot;
+    sender;
+    permissions;
+    body;
+    message;
+    quoted;
+    commands;
+    plugins;
+    #raw;
+    #sock;
+    constructor(sock, raw, data) {
+        this.#sock = sock;
+        this.#raw = raw;
+        Object.assign(this, data);
+    }
+    async reply(text) {
+        return await this.#sock.sendMessage(this.chat, { text }, { quoted: this.#raw });
+    }
+    async sendImage(image, caption = '') {
+        return await this.#sock.sendMessage(this.chat, { image, caption }, { quoted: this.#raw });
+    }
+    async sendVideo(video, caption = '') {
+        return await this.#sock.sendMessage(this.chat, { video, caption }, { quoted: this.#raw });
+    }
+    async sendAudio(audio, ptt = false) {
+        return await this.#sock.sendMessage(this.chat, { audio, ptt }, { quoted: this.#raw });
+    }
+    async sendDocument(document, options = {}) {
+        return await this.#sock.sendMessage(this.chat, { document, ...options }, { quoted: this.#raw });
+    }
+    async sendSticker(sticker) {
+        return await this.#sock.sendMessage(this.chat, { sticker }, { quoted: this.#raw });
+    }
+    async react(emoji) {
+        return await this.#sock.sendMessage(this.chat, { react: { text: emoji, key: this.key } });
+    }
+    async delete() {
+        return await this.#sock.sendMessage(this.chat, { delete: this.key });
+    }
+    async downloadMedia() {
+        const mtype = this.body.mtype;
+        const mediaMsg = this.#raw?.message?.[mtype];
+        if (mediaMsg?.url && mediaMsg.url.includes('a.whatsapp.net')) {
+            mediaMsg.url = mediaMsg.url.replace('a.whatsapp.net', 'mmg.whatsapp.net');
+        }
+        return await downloadMediaMessage(this.#raw, 'buffer', {}, {
+            logger: this.#sock.ws.config.logger,
+            reuploadRequest: this.#sock.updateMediaMessage
+        });
+    }
+}
 export default async function ({ id, sock, WAMessage }) {
     const normalizedMessages = {
         ...WAMessage,
@@ -21,9 +77,12 @@ export default async function ({ id, sock, WAMessage }) {
     const senderPn = decodeSender(key, 'pn');
     const sender = key.addressingMode === 'lid' ? senderLid : senderPn;
     const mtype = getContentType(message);
-    const text = getTextMessage(message);
+    const text = extractMessageText(message);
+    const commandText = text.split(' ')[0].trim();
+    const argsText = text.replace(commandText, '').trim();
+    const args = argsText ? argsText.split(/ +/) : [];
     const quoted = getQuoted({ key, mtype, message, sock });
-    const msg = {
+    const data = {
         key,
         chat,
         fromMe: key.fromMe,
@@ -32,6 +91,7 @@ export default async function ({ id, sock, WAMessage }) {
             isGroup,
             isText: mtype === 'conversation' || mtype === 'extendedTextMessage',
             isSticker: mtype === 'stickerMessage',
+            isStickerAnimated: mtype === 'stickerMessage' && !!message?.stickerMessage?.isAnimated,
             isImage: mtype === 'imageMessage',
             isVideo: mtype === 'videoMessage',
             isAudio: mtype === 'audioMessage',
@@ -67,9 +127,9 @@ export default async function ({ id, sock, WAMessage }) {
         body: {
             mtype,
             rawText: text,
-            command: text.split(' ')[0].trim(),
-            argsText: text.replace(text.split(' ')[0].trim(), '').trim(),
-            args: text.replace(text.split(' ')[0].trim(), '').trim().split(' '),
+            command: commandText,
+            argsText,
+            args,
             mentionedJid: message[mtype]?.contextInfo?.mentionedJid || [],
             expiration: message[mtype]?.contextInfo?.expiration || 0,
         },
@@ -78,13 +138,7 @@ export default async function ({ id, sock, WAMessage }) {
         commands: [],
         plugins: {},
     };
-    msg.downloadMedia = async function download(WAMessage) {
-        return await downloadMediaMessage(WAMessage || this, 'buffer', {}, {
-            logger: sock.ws.config.logger,
-            reuploadRequest: sock.updateMediaMessage
-        });
-    };
-    return msg;
+    return new MessageContext(sock, WAMessage, data);
 }
 const decodeSender = (key, type) => {
     let sender;
@@ -114,22 +168,71 @@ const IsSender = (pnOrLid, participants, admin) => {
             admin.includes(participant.admin));
     });
 };
-const getTextMessage = (message) => {
-    return (message?.conversation ||
-        message?.extendedTextMessage?.text ||
-        message?.imageMessage?.caption ||
-        message?.videoMessage?.caption ||
-        message?.documentMessage?.caption ||
-        message?.documentWithCaptionMessage?.message?.documentMessage?.caption ||
-        message?.ephemeralMessage?.message?.conversation ||
-        message?.ephemeralMessage?.message?.extendedTextMessage?.text ||
-        message?.ephemeralMessage?.message?.imageMessage?.caption ||
-        message?.ephemeralMessage?.message?.videoMessage?.caption ||
-        message?.ephemeralMessage?.message?.documentWithCaptionMessage?.message?.documentMessage
-            ?.caption ||
-        message?.editedMessage?.message?.protocolMessage?.editedMessage?.conversation ||
-        message?.editedMessage?.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text ||
-        '');
+const extractMessageText = (m) => {
+    if (!m)
+        return '';
+    const msg = m.message ? m.message : m;
+    if (!msg)
+        return '';
+    const type = Object.keys(msg)[0];
+    if (!type)
+        return '';
+    if (type === 'conversation') {
+        return msg.conversation || '';
+    }
+    else if (type === 'extendedTextMessage') {
+        return msg.extendedTextMessage.text || '';
+    }
+    else if (type === 'imageMessage') {
+        return msg.imageMessage.caption || '';
+    }
+    else if (type === 'videoMessage') {
+        return msg.videoMessage.caption || '';
+    }
+    else if (type === 'documentMessage') {
+        return msg.documentMessage.caption || '';
+    }
+    else if (type === 'viewOnceMessage' || type === 'viewOnceMessageV2' || type === 'viewOnceMessageV2Extension') {
+        return extractMessageText(msg[type].message);
+    }
+    else if (type === 'ephemeralMessage') {
+        return extractMessageText(msg.ephemeralMessage.message);
+    }
+    else if (type === 'documentWithCaptionMessage') {
+        return extractMessageText(msg.documentWithCaptionMessage.message);
+    }
+    else if (type === 'buttonsResponseMessage') {
+        return msg.buttonsResponseMessage.selectedButtonId || '';
+    }
+    else if (type === 'templateButtonReplyMessage') {
+        return msg.templateButtonReplyMessage.selectedId || '';
+    }
+    else if (type === 'listResponseMessage') {
+        return msg.listResponseMessage.singleSelectReply?.selectedRowId || '';
+    }
+    else if (type === 'interactiveResponseMessage') {
+        const response = msg.interactiveResponseMessage.nativeFlowResponseMessage;
+        if (response) {
+            return response.paramsJson || '';
+        }
+        return msg.interactiveResponseMessage.body?.text || '';
+    }
+    else if (type === 'pollCreationMessage') {
+        return msg.pollCreationMessage.name || '';
+    }
+    else if (type === 'editedMessage') {
+        return extractMessageText(msg.editedMessage.message?.protocolMessage?.editedMessage);
+    }
+    const subObj = msg[type];
+    if (subObj && typeof subObj === 'object') {
+        if (subObj.text)
+            return subObj.text;
+        if (subObj.caption)
+            return subObj.caption;
+        if (subObj.message)
+            return extractMessageText(subObj.message);
+    }
+    return '';
 };
 const getQuoted = ({ key, mtype, message, sock, }) => {
     const Quoted = message[mtype]?.contextInfo?.quotedMessage;
@@ -140,7 +243,10 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
     const type = getContentType(quotedMessage);
     if (!type)
         return undefined;
-    const text = getTextMessage(quotedMessage);
+    const text = extractMessageText(quotedMessage);
+    const commandText = text.split(' ')[0].trim();
+    const argsText = text.replace(commandText, '').trim();
+    const args = argsText ? argsText.split(/ +/) : [];
     const isGroup = isJidGroup(key.remoteJid);
     const keyQuoted = {
         remoteJid: isGroup ? key.remoteJid : contextInfo.participant,
@@ -160,6 +266,7 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
             isGroup,
             isText: type === 'conversation' || type === 'extendedTextMessage',
             isSticker: type === 'stickerMessage',
+            isAnimated: type === 'stickerMessage' && !!quotedMessage?.stickerMessage?.isAnimated,
             isImage: type === 'imageMessage',
             isVideo: type === 'videoMessage',
             isAudio: type === 'audioMessage',
@@ -173,15 +280,20 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
         msg: {
             mtype: type,
             rawText: text,
-            command: text.split(' ')[0].trim(),
-            argsText: text.replace(text.split(' ')[0].trim(), '').trim(),
-            args: text.replace(text.split(' ')[0].trim(), '').trim().split(' '),
+            command: commandText,
+            argsText,
+            args,
             mentionedJid: contextInfo.mentionedJid,
             expiration: contextInfo?.expiration || 0,
         },
         message: quotedMessage,
         downloadMedia: async function download(WAMessage) {
-            return await downloadMediaMessage(WAMessage || this, 'buffer', {}, {
+            const target = WAMessage || this;
+            const mediaMsg = target.message?.[type];
+            if (mediaMsg?.url && mediaMsg.url.includes('a.whatsapp.net')) {
+                mediaMsg.url = mediaMsg.url.replace('a.whatsapp.net', 'mmg.whatsapp.net');
+            }
+            return await downloadMediaMessage(target, 'buffer', {}, {
                 logger: sock.ws.config.logger,
                 reuploadRequest: sock.updateMediaMessage
             });
