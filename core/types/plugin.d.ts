@@ -1,6 +1,6 @@
 import type { BaileysEventMap, WASocket, WAMessage, WAMessageContent, WAMessageKey } from 'baileys';
 import { CacheService } from '@lazy-bot/core/services/cache/index';
-import { Knex } from 'knex';
+import type { Knex } from 'knex';
 declare global {
     interface SerializedMessageExtensions {
     }

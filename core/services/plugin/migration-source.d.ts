@@ -1,4 +1,4 @@
-import { Knex } from 'knex';
+import type { Knex } from 'knex';
 export default class PluginMigrationSource implements Knex.MigrationSource<string> {
     private migrationsPath;
     private pluginKey;
