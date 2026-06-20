@@ -42,7 +42,7 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
         isGroup: boolean;
         isText: boolean;
         isSticker: boolean;
-        isAnimated: boolean;
+        isStickerAnimated: boolean;
         isImage: boolean;
         isVideo: boolean;
         isAudio: boolean;
@@ -90,7 +90,7 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
             isGroup: boolean;
             isText: boolean;
             isSticker: boolean;
-            isAnimated: boolean;
+            isStickerAnimated: boolean;
             isImage: boolean;
             isVideo: boolean;
             isAudio: boolean;

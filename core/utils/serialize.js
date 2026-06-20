@@ -266,7 +266,7 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
             isGroup,
             isText: type === 'conversation' || type === 'extendedTextMessage',
             isSticker: type === 'stickerMessage',
-            isAnimated: type === 'stickerMessage' && !!quotedMessage?.stickerMessage?.isAnimated,
+            isStickerAnimated: type === 'stickerMessage' && !!quotedMessage?.stickerMessage?.isAnimated,
             isImage: type === 'imageMessage',
             isVideo: type === 'videoMessage',
             isAudio: type === 'audioMessage',
