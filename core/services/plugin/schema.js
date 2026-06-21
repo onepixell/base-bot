@@ -53,10 +53,9 @@ function requiredFunction(field) {
 export const CommandSchema = z.object({
     name: requiredString('name'),
     aliases: z.array(z.string()),
-    description: z.string().optional(),
     withoutPrefix: z.boolean().default(false),
     execute: requiredFunction('execute'),
-});
+}).passthrough();
 export const MiddlewareSchema = z.object({
     event: z.enum(['command', ...BAILEYS_EVENT_NAMES], {
         error: (issue) => issue.input === undefined
@@ -65,7 +64,7 @@ export const MiddlewareSchema = z.object({
     }),
     priority: z.number().default(0),
     handler: requiredFunction('handler'),
-});
+}).passthrough();
 export const EventSchema = z.object({
     event: z.enum(BAILEYS_EVENT_NAMES, {
         error: (issue) => issue.input === undefined
@@ -74,4 +73,4 @@ export const EventSchema = z.object({
     }),
     priority: z.number().default(0),
     execute: requiredFunction('execute'),
-});
+}).passthrough();
