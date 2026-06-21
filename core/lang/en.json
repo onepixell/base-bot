@@ -334,7 +334,8 @@
     "error_set_config": "Error set config {config}: {error}",
     "dependency_missing": "Disabled: Missing required plugin '{dep}'.",
     "dependency_version_mismatch": "Disabled: Requires plugin '{dep}' version {required}, but currently installed is version {installed}.",
-    "workspace_login_required": "Skipping workspace plugins because you are not logged in. Please login first."
+    "workspace_login_required": "Skipping workspace plugins because you are not logged in. Please login first.",
+    "workspace_plugin_skipped": "Plugin '{name}' from workspace is skipped because it is already loaded from plugins directory."
   },
   "system": {
     "failed_to_start": "Failed to start lazy: {error}",

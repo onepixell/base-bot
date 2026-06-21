@@ -100,6 +100,11 @@ class PluginManager {
                         const ns = `@${currentUsername}`;
                         pluginKey = `${ns}/${folder}`;
                     }
+                    if (this.loadedPlugins.has(pluginKey) || this.failedPlugins.has(pluginKey)) {
+                        logger.warn(`[WORKSPACE]`, t('plugin.workspace_plugin_skipped', { name: pluginKey }) ||
+                            `Plugin '${pluginKey}' from workspace is skipped because it is already loaded from plugins directory.`);
+                        return;
+                    }
                     await this.loadPlugin(pluginKey, isReload, folderPath).catch(() => { });
                 }));
             }
