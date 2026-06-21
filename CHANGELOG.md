@@ -1,5 +1,37 @@
 # Changelog
 
+## [2.0.0] - Release Notes
+
+### ✨ New Features & Enhancements
+* **auth:** Implementation of multi-account switching and migration
+* **cli:** Separation of functionality between publishing new plugins and the update process
+* **config:** Addition of `env.example` and setup for automatic database table creation
+* **core:** Addition of version check and i18n message support
+* **core:** Addition of source maps and improved reliability during plugin reload process
+* **core:** Introduction of `MessageContext` and serialization optimization
+* **core:** Addition of new utilities for media conversion
+* **plugin:** Improvements to command (CLI) functionality for plugin installation and publishing
+* **store:** Implementation of persistent message history storage and retrieval system
+* **types:** Addition of device detection on serialized messages
+
+### 🐛 Bug Fixes
+* **build:** Adjustment of minification process logic specifically for socket and CLI functionalities
+* **build:** Fixed an issue where the `.env` file was copied due to being read from gitignore
+* **core:** Improvement of graceful shutdown process to prevent the process from stopping abruptly
+* **plugin:** Revalidation of manifest names and cleaned up error handling
+* **plugin:** Fixed the reload system to rely on the manifest name
+
+### ♻️ Refactoring & Chores
+* **core:** Simplified the plugin loading process
+* **core:** Restructured import path naming to use the `@lazy` scope
+* **core:** Renamed the specific `isAnimated` property to `isStickerAnimated`
+* **core:** Improved logic for message text extraction
+* **database:** Optimization of migration loading and plugin permissions
+* **plugin:** Cleaned up caching and plugin reload logic
+* **store:** Cleanup and renaming of the unused `cursor` variable
+* Moved the `messageBatcher` import to the top of the `lazy.ts` file
+* **chore:** Registered `.env` in `.gitignore`
+
 ## v1.1.0
 
 Version 1.1.0 brings major architectural improvements, a significantly more resilient plugin hot-reload system, and the introduction of persistent message storage using a database. We are also introducing `MessageContext` to simplify message handling for plugin developers, along with various new core utilities.
