@@ -1,0 +1,20 @@
+{
+  "name": "@lazy/basic",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "A highly recommended core plugin for a smarter and feature-rich bot. Includes essential utilities like dynamic prefix management, owner controls, and security features.",
+  "keywords": [
+    "lazybot",
+    "core",
+    "utility",
+    "administration",
+    "moderation",
+    "security",
+    "baileys",
+    "whatsapp"
+  ],
+  "author": "lazy",
+  "repository": "https://github.com/onepixell/lazybot-plugin-basic",
+  "pluginDependencies": {},
+  "dependencies": {}
+}

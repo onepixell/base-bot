@@ -5,6 +5,7 @@ build
 storage/*
 workspace/*
 plugins/*
+!plugins/@lazy/basic
 
 # Build tools specific
 npm-debug.log

@@ -1,0 +1,92 @@
+{
+  "errors": {
+    "onlyOwner": "Access denied: Owner only.",
+    "groupOnly": "Access denied: Group only.",
+    "quoteRequired": "Please reply to a message.",
+    "targetRequired": "Please specify a target."
+  },
+  "ban": {
+    "desc": "Manage banned users (list/add/del).",
+    "empty": "No banned users.",
+    "list": "Banned Users:\n{list}",
+    "usage": "Provide a target.\nUsage: {prefix}ban {cmd} 628xxx",
+    "alreadyBanned": "{target} is already banned.",
+    "banned": "{target} has been banned.",
+    "notBanned": "{target} is not banned.",
+    "unbanned": "{target} has been unbanned.",
+    "menu": "Ban Menu\n\n• {prefix}ban list - List banned\n• {prefix}ban add <number/@> - Ban user\n• {prefix}ban del <number/@> - Unban user"
+  },
+  "eval": {
+    "desc": "Evaluate JavaScript code.",
+    "empty": "Provide JavaScript code to evaluate.",
+    "error": "Error:\n```{error}```"
+  },
+  "exec": {
+    "desc": "Execute terminal command.",
+    "empty": "Provide a command to execute.",
+    "noOutput": "Command executed (no output).",
+    "error": "Error:\n```{error}```"
+  },
+  "join": {
+    "desc": "Join group via invite link.",
+    "usage": "Provide an invite link.\nUsage: {prefix}join https://chat.whatsapp.com/xxx",
+    "success": "Joined group successfully.",
+    "failed": "Failed to join. Invalid link or blocked."
+  },
+  "leave": {
+    "desc": "Leave current group.",
+    "goodbye": "Leaving group...",
+    "failed": "Failed to leave."
+  },
+  "mode": {
+    "desc": "Set bot mode (public/private).",
+    "success": "Mode set to {mode}.",
+    "menu": "Mode: {mode}\n\n• {prefix}mode public\n• {prefix}mode private"
+  },
+  "owner": {
+    "desc": "Manage bot owners (list/add/del).",
+    "empty": "No owners configured.",
+    "list": "Owners:\n{list}",
+    "usage": "Provide a target.\nUsage: {prefix}owner {cmd} 628xxx",
+    "alreadyOwner": "{target} is already an owner.",
+    "added": "{target} added as owner.",
+    "notOwner": "{target} is not an owner.",
+    "removed": "{target} removed from owners.",
+    "menu": "Owner Menu\n\n• {prefix}owner list - List owners\n• {prefix}owner add <number/@> - Add owner\n• {prefix}owner del <number/@> - Remove owner"
+  },
+  "prefix": {
+    "desc": "Manage bot prefixes (list/add/del).",
+    "empty": "No prefixes configured.",
+    "list": "Prefixes:\n{list}",
+    "usage": "Provide a prefix.\nUsage: {botPrefix}prefix {cmd} !",
+    "tooLong": "Prefix must be < 3 chars.",
+    "alreadyConfigured": "Prefix \"{target}\" already exists.",
+    "added": "\"{target}\" added to prefixes.",
+    "notConfigured": "Prefix \"{target}\" not found.",
+    "removed": "\"{target}\" removed from prefixes.",
+    "menu": "Prefix Menu\n\n• {botPrefix}prefix list - List prefixes\n• {botPrefix}prefix add <char> - Add prefix\n• {botPrefix}prefix del <char> - Remove prefix"
+  },
+  "stats": {
+    "desc": "Check bot statistics and ping",
+    "result": "Bot Statistics\n\nPing: {latency}ms\nUptime: {uptime}\nNodeJS: {nodeVersion}\nOS: {os}\nRAM: {ramUsage} / {ramTotal}"
+  },
+  "fetch": {
+    "desc": "Fetch data from a URL",
+    "usage": "Provide a URL.\nUsage: {prefix}fetch https://api.github.com",
+    "error": "Error fetching URL:\n{error}"
+  },
+  "restart": {
+    "desc": "Restart the bot process",
+    "success": "Restarting bot process..."
+  },
+  "block": {
+    "desc": "Block a user on WhatsApp",
+    "success": "{target} has been blocked.",
+    "failed": "Failed to block {target}."
+  },
+  "unblock": {
+    "desc": "Unblock a user on WhatsApp",
+    "success": "{target} has been unblocked.",
+    "failed": "Failed to unblock {target}."
+  }
+}

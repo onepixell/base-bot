@@ -1,0 +1,92 @@
+{
+  "errors": {
+    "onlyOwner": "Akses ditolak: Khusus Owner.",
+    "groupOnly": "Akses ditolak: Khusus Grup.",
+    "quoteRequired": "Balas pesan yang ingin diproses.",
+    "targetRequired": "Tentukan nomor atau @mention target."
+  },
+  "ban": {
+    "desc": "Kelola pengguna yang diblokir (list/add/del).",
+    "empty": "Tidak ada pengguna yang diblokir.",
+    "list": "Daftar Blokir:\n{list}",
+    "usage": "Masukkan target.\nCara pakai: {prefix}ban {cmd} 628xxx",
+    "alreadyBanned": "{target} sudah diblokir.",
+    "banned": "{target} berhasil diblokir.",
+    "notBanned": "{target} tidak diblokir.",
+    "unbanned": "{target} berhasil dibuka blokirnya.",
+    "menu": "Menu Blokir\n\n• {prefix}ban list - Daftar blokir\n• {prefix}ban add <nomor/@> - Blokir user\n• {prefix}ban del <nomor/@> - Buka blokir"
+  },
+  "eval": {
+    "desc": "Evaluasi kode JavaScript.",
+    "empty": "Masukkan kode JavaScript yang akan dievaluasi.",
+    "error": "Error:\n```{error}```"
+  },
+  "exec": {
+    "desc": "Eksekusi perintah terminal.",
+    "empty": "Masukkan perintah untuk dieksekusi.",
+    "noOutput": "Perintah dieksekusi (tanpa output).",
+    "error": "Error:\n```{error}```"
+  },
+  "join": {
+    "desc": "Bergabung ke grup via link.",
+    "usage": "Masukkan link undangan.\nCara pakai: {prefix}join https://chat.whatsapp.com/xxx",
+    "success": "Berhasil bergabung ke grup.",
+    "failed": "Gagal bergabung. Tautan kedaluwarsa atau dilarang."
+  },
+  "leave": {
+    "desc": "Keluar dari grup saat ini.",
+    "goodbye": "Keluar dari grup...",
+    "failed": "Gagal keluar dari grup."
+  },
+  "mode": {
+    "desc": "Atur mode bot (public/private).",
+    "success": "Mode diubah ke {mode}.",
+    "menu": "Mode aktif: {mode}\n\n• {prefix}mode public\n• {prefix}mode private"
+  },
+  "owner": {
+    "desc": "Kelola owner bot (list/add/del).",
+    "empty": "Belum ada owner yang didaftarkan.",
+    "list": "Daftar Owner:\n{list}",
+    "usage": "Masukkan target.\nCara pakai: {prefix}owner {cmd} 628xxx",
+    "alreadyOwner": "{target} sudah menjadi owner.",
+    "added": "{target} ditambahkan sebagai owner.",
+    "notOwner": "{target} bukan owner.",
+    "removed": "{target} dihapus dari owner.",
+    "menu": "Menu Owner\n\n• {prefix}owner list - Daftar owner\n• {prefix}owner add <nomor/@> - Tambah owner\n• {prefix}owner del <nomor/@> - Hapus owner"
+  },
+  "prefix": {
+    "desc": "Kelola awalan perintah (list/add/del).",
+    "empty": "Belum ada prefix yang didaftarkan.",
+    "list": "Daftar Prefix:\n{list}",
+    "usage": "Masukkan prefix.\nCara pakai: {botPrefix}prefix {cmd} !",
+    "tooLong": "Prefix harus < 3 karakter.",
+    "alreadyConfigured": "Prefix \"{target}\" sudah terdaftar.",
+    "added": "Prefix \"{target}\" berhasil ditambahkan.",
+    "notConfigured": "Prefix \"{target}\" tidak ditemukan.",
+    "removed": "Prefix \"{target}\" berhasil dihapus.",
+    "menu": "Menu Prefix\n\n• {botPrefix}prefix list - Daftar prefix\n• {botPrefix}prefix add <char> - Tambah prefix\n• {botPrefix}prefix del <char> - Hapus prefix"
+  },
+  "stats": {
+    "desc": "Cek statistik sistem dan ping bot",
+    "result": "Statistik Bot\n\nPing: {latency}ms\nAktif: {uptime}\nNodeJS: {nodeVersion}\nOS: {os}\nRAM: {ramUsage} / {ramTotal}"
+  },
+  "fetch": {
+    "desc": "Ambil data dari URL",
+    "usage": "Masukkan URL.\nCara pakai: {prefix}fetch https://api.github.com",
+    "error": "Gagal mengambil URL:\n{error}"
+  },
+  "restart": {
+    "desc": "Mulai ulang proses bot",
+    "success": "Mulai ulang proses bot..."
+  },
+  "block": {
+    "desc": "Blokir pengguna WhatsApp",
+    "success": "{target} berhasil diblokir.",
+    "failed": "Gagal memblokir {target}."
+  },
+  "unblock": {
+    "desc": "Buka blokir pengguna WhatsApp",
+    "success": "{target} berhasil dibuka blokirnya.",
+    "failed": "Gagal membuka blokir {target}."
+  }
+}
