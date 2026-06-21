@@ -8,9 +8,7 @@
 
   "overrides": [
     {
-      "files": [
-        "**/*.js"
-      ],
+      "files": ["**/*.js"],
       "options": {
         "semi": true,
         "trailingComma": "es5"

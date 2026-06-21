@@ -1,2 +1,17 @@
-async function n(t){await t.schema.hasTable("store_contacts")||await t.schema.createTable("store_contacts",a=>{a.string("jid").primary(),a.string("lid").nullable(),a.string("name").nullable(),a.string("pushname").nullable(),a.timestamp("created_at").defaultTo(t.fn.now()),a.timestamp("updated_at").defaultTo(t.fn.now()),a.index(["lid"])})}async function e(t){await t.schema.dropTableIfExists("store_contacts")}export{e as down,n as up};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwKGtuZXgpIHtcbiAgICBjb25zdCBoYXNUYWJsZSA9IGF3YWl0IGtuZXguc2NoZW1hLmhhc1RhYmxlKCdzdG9yZV9jb250YWN0cycpO1xuICAgIGlmICghaGFzVGFibGUpIHtcbiAgICAgICAgYXdhaXQga25leC5zY2hlbWEuY3JlYXRlVGFibGUoJ3N0b3JlX2NvbnRhY3RzJywgKHRhYmxlKSA9PiB7XG4gICAgICAgICAgICB0YWJsZS5zdHJpbmcoJ2ppZCcpLnByaW1hcnkoKTtcbiAgICAgICAgICAgIHRhYmxlLnN0cmluZygnbGlkJykubnVsbGFibGUoKTtcbiAgICAgICAgICAgIHRhYmxlLnN0cmluZygnbmFtZScpLm51bGxhYmxlKCk7XG4gICAgICAgICAgICB0YWJsZS5zdHJpbmcoJ3B1c2huYW1lJykubnVsbGFibGUoKTtcbiAgICAgICAgICAgIHRhYmxlLnRpbWVzdGFtcCgnY3JlYXRlZF9hdCcpLmRlZmF1bHRUbyhrbmV4LmZuLm5vdygpKTtcbiAgICAgICAgICAgIHRhYmxlLnRpbWVzdGFtcCgndXBkYXRlZF9hdCcpLmRlZmF1bHRUbyhrbmV4LmZuLm5vdygpKTtcbiAgICAgICAgICAgIHRhYmxlLmluZGV4KFsnbGlkJ10pO1xuICAgICAgICB9KTtcbiAgICB9XG59XG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gZG93bihrbmV4KSB7XG4gICAgYXdhaXQga25leC5zY2hlbWEuZHJvcFRhYmxlSWZFeGlzdHMoJ3N0b3JlX2NvbnRhY3RzJyk7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiQUFBQSxlQUFzQkEsRUFBR0MsRUFBTSxDQUNWLE1BQU1BLEVBQUssT0FBTyxTQUFTLGdCQUFnQixHQUV4RCxNQUFNQSxFQUFLLE9BQU8sWUFBWSxpQkFBbUJDLEdBQVUsQ0FDdkRBLEVBQU0sT0FBTyxLQUFLLEVBQUUsUUFBUSxFQUM1QkEsRUFBTSxPQUFPLEtBQUssRUFBRSxTQUFTLEVBQzdCQSxFQUFNLE9BQU8sTUFBTSxFQUFFLFNBQVMsRUFDOUJBLEVBQU0sT0FBTyxVQUFVLEVBQUUsU0FBUyxFQUNsQ0EsRUFBTSxVQUFVLFlBQVksRUFBRSxVQUFVRCxFQUFLLEdBQUcsSUFBSSxDQUFDLEVBQ3JEQyxFQUFNLFVBQVUsWUFBWSxFQUFFLFVBQVVELEVBQUssR0FBRyxJQUFJLENBQUMsRUFDckRDLEVBQU0sTUFBTSxDQUFDLEtBQUssQ0FBQyxDQUN2QixDQUFDLENBRVQsQ0FDQSxlQUFzQkMsRUFBS0YsRUFBTSxDQUM3QixNQUFNQSxFQUFLLE9BQU8sa0JBQWtCLGdCQUFnQixDQUN4RCIsCiAgIm5hbWVzIjogWyJ1cCIsICJrbmV4IiwgInRhYmxlIiwgImRvd24iXQp9Cg==
+export async function up(knex) {
+    const hasTable = await knex.schema.hasTable('store_contacts');
+    if (!hasTable) {
+        await knex.schema.createTable('store_contacts', (table) => {
+            table.string('jid').primary();
+            table.string('lid').nullable();
+            table.string('name').nullable();
+            table.string('pushname').nullable();
+            table.timestamp('created_at').defaultTo(knex.fn.now());
+            table.timestamp('updated_at').defaultTo(knex.fn.now());
+            table.index(['lid']);
+        });
+    }
+}
+export async function down(knex) {
+    await knex.schema.dropTableIfExists('store_contacts');
+}

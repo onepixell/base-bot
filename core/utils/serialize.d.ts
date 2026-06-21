@@ -34,7 +34,7 @@ export declare class MessageContext {
     delete(): Promise<any>;
     downloadMedia(): Promise<Buffer<ArrayBufferLike>>;
 }
-export default function ({ id, sock, WAMessage }: {
+export default function ({ id, sock, WAMessage, }: {
     id: string;
     sock: any;
     WAMessage: WAMessage;

@@ -1,2 +1,2 @@
-export * from '@lazy-bot/core/services/database/config';
-export * from '@lazy-bot/core/services/database/connection';
+export * from '@lazy/core/services/database/config';
+export * from '@lazy/core/services/database/connection';

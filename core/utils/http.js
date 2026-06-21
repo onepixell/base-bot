@@ -54,7 +54,9 @@ export class PendingRequest {
             headers: { ...this.requestHeaders },
         };
         if (data) {
-            if (typeof data === 'object' && !(data instanceof FormData) && !(data instanceof URLSearchParams)) {
+            if (typeof data === 'object' &&
+                !(data instanceof FormData) &&
+                !(data instanceof URLSearchParams)) {
                 options.headers = {
                     'Content-Type': 'application/json',
                     ...options.headers,
@@ -192,7 +194,7 @@ export class Http {
                 mime,
                 ext,
                 size,
-                filename
+                filename,
             };
         }
         catch {

@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
-import { dirStorage, dirTemp } from '@lazy-bot/core/utils/path';
+import { dirStorage, dirTemp } from '@lazy/core/utils/path';
 export class Storage {
     static async save(buffer, options = {}) {
         const targetDir = dirStorage(options.subDir || '');
@@ -29,7 +29,7 @@ export class Storage {
         const targetDir = dirTemp();
         try {
             const files = await fs.readdir(targetDir);
-            await Promise.all(files.map(file => fs.unlink(path.join(targetDir, file)).catch(() => { })));
+            await Promise.all(files.map((file) => fs.unlink(path.join(targetDir, file)).catch(() => { })));
         }
         catch {
         }

@@ -1,2 +1,24 @@
-import n from"knex";import s from"@lazy-bot/core/services/env/index";import{databaseConfig as m}from"./config.js";import o from"@lazy-bot/core/utils/logger";import{t as i}from"@lazy-bot/core/services/i18n/index";let e;const p=async()=>{const a=m[s.DB_CONNECTION];try{return e=n(a),e.client.on("query",t=>{t.bindings&&(t.bindings=t.bindings.map(r=>typeof r=="object"&&r!==null?JSON.stringify(r):r))}),await e.migrate.latest(),o.success("[DATABASE]",i("database.connected")),e}catch(t){throw o.error("[DATABASE]",i("database.failed",{error:t.message})),t}};export{e as db,p as initDatabase};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IGtuZXggZnJvbSAna25leCc7XG5pbXBvcnQgZW52IGZyb20gJ0BsYXp5LWJvdC9jb3JlL3NlcnZpY2VzL2Vudi9pbmRleCc7XG5pbXBvcnQgeyBkYXRhYmFzZUNvbmZpZyB9IGZyb20gJy4vY29uZmlnLmpzJztcbmltcG9ydCBsb2dnZXIgZnJvbSAnQGxhenktYm90L2NvcmUvdXRpbHMvbG9nZ2VyJztcbmltcG9ydCB7IHQgfSBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9pMThuL2luZGV4JztcbmV4cG9ydCBsZXQgZGI7XG5leHBvcnQgY29uc3QgaW5pdERhdGFiYXNlID0gYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IGNvbmZpZyA9IGRhdGFiYXNlQ29uZmlnW2Vudi5EQl9DT05ORUNUSU9OXTtcbiAgICB0cnkge1xuICAgICAgICBkYiA9IGtuZXgoY29uZmlnKTtcbiAgICAgICAgZGIuY2xpZW50Lm9uKCdxdWVyeScsIChxdWVyeSkgPT4ge1xuICAgICAgICAgICAgaWYgKHF1ZXJ5LmJpbmRpbmdzKSB7XG4gICAgICAgICAgICAgICAgcXVlcnkuYmluZGluZ3MgPSBxdWVyeS5iaW5kaW5ncy5tYXAoKHYpID0+IHR5cGVvZiB2ID09PSAnb2JqZWN0JyAmJiB2ICE9PSBudWxsID8gSlNPTi5zdHJpbmdpZnkodikgOiB2KTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSk7XG4gICAgICAgIGF3YWl0IGRiLm1pZ3JhdGUubGF0ZXN0KCk7XG4gICAgICAgIGxvZ2dlci5zdWNjZXNzKCdbREFUQUJBU0VdJywgdCgnZGF0YWJhc2UuY29ubmVjdGVkJykpO1xuICAgICAgICByZXR1cm4gZGI7XG4gICAgfVxuICAgIGNhdGNoIChlcnIpIHtcbiAgICAgICAgbG9nZ2VyLmVycm9yKCdbREFUQUJBU0VdJywgdCgnZGF0YWJhc2UuZmFpbGVkJywgeyBlcnJvcjogZXJyLm1lc3NhZ2UgfSkpO1xuICAgICAgICB0aHJvdyBlcnI7XG4gICAgfVxufTtcbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLE9BQU9BLE1BQVUsT0FDakIsT0FBT0MsTUFBUyxvQ0FDaEIsT0FBUyxrQkFBQUMsTUFBc0IsY0FDL0IsT0FBT0MsTUFBWSw4QkFDbkIsT0FBUyxLQUFBQyxNQUFTLHFDQUNYLElBQUlDLEVBQ0osTUFBTUMsRUFBZSxTQUFZLENBQ3BDLE1BQU1DLEVBQVNMLEVBQWVELEVBQUksYUFBYSxFQUMvQyxHQUFJLENBQ0EsT0FBQUksRUFBS0wsRUFBS08sQ0FBTSxFQUNoQkYsRUFBRyxPQUFPLEdBQUcsUUFBVUcsR0FBVSxDQUN6QkEsRUFBTSxXQUNOQSxFQUFNLFNBQVdBLEVBQU0sU0FBUyxJQUFLQyxHQUFNLE9BQU9BLEdBQU0sVUFBWUEsSUFBTSxLQUFPLEtBQUssVUFBVUEsQ0FBQyxFQUFJQSxDQUFDLEVBRTlHLENBQUMsRUFDRCxNQUFNSixFQUFHLFFBQVEsT0FBTyxFQUN4QkYsRUFBTyxRQUFRLGFBQWNDLEVBQUUsb0JBQW9CLENBQUMsRUFDN0NDLENBQ1gsT0FDT0ssRUFBSyxDQUNSLE1BQUFQLEVBQU8sTUFBTSxhQUFjQyxFQUFFLGtCQUFtQixDQUFFLE1BQU9NLEVBQUksT0FBUSxDQUFDLENBQUMsRUFDakVBLENBQ1YsQ0FDSiIsCiAgIm5hbWVzIjogWyJrbmV4IiwgImVudiIsICJkYXRhYmFzZUNvbmZpZyIsICJsb2dnZXIiLCAidCIsICJkYiIsICJpbml0RGF0YWJhc2UiLCAiY29uZmlnIiwgInF1ZXJ5IiwgInYiLCAiZXJyIl0KfQo=
+import knex from 'knex';
+import env from '@lazy/core/services/env/index';
+import { databaseConfig } from './config.js';
+import logger from '@lazy/core/utils/logger';
+import { t } from '@lazy/core/services/i18n/index';
+export let db;
+export const initDatabase = async () => {
+    const config = databaseConfig[env.DB_CONNECTION];
+    try {
+        db = knex(config);
+        db.client.on('query', (query) => {
+            if (query.bindings) {
+                query.bindings = query.bindings.map((v) => typeof v === 'object' && v !== null ? JSON.stringify(v) : v);
+            }
+        });
+        await db.migrate.latest();
+        logger.success('[DATABASE]', t('database.connected'));
+        return db;
+    }
+    catch (err) {
+        logger.error('[DATABASE]', t('database.failed', { error: err.message }));
+        throw err;
+    }
+};

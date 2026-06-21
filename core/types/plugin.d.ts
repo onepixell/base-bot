@@ -1,5 +1,5 @@
 import type { BaileysEventMap, WASocket, WAMessage, WAMessageContent, WAMessageKey } from 'baileys';
-import { CacheService } from '@lazy-bot/core/services/cache/index';
+import { CacheService } from '@lazy/core/services/cache/index';
 import type { Knex } from 'knex';
 declare global {
     interface SerializedMessageExtensions {
@@ -37,6 +37,7 @@ export interface SerializedMessage extends Omit<SerializedMessageExtensions, 'fl
     key: WAMessageKey;
     chat: string;
     fromMe: boolean;
+    device: 'web' | 'unknown' | 'android' | 'ios' | 'desktop';
     flags: {
         fromMe: boolean;
         isGroup: boolean;

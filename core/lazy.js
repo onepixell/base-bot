@@ -1,2 +1,89 @@
-import n from"node:dns";n.setDefaultResultOrder("ipv4first");import{initDirectories as c}from"@lazy-bot/core/utils/path";import{initDatabase as l}from"@lazy-bot/core/services/database/index";import{initCache as m}from"@lazy-bot/core/services/cache/index";import e from"@lazy-bot/core/services/env/index";import i from"@lazy-bot/core/socket/index";import p from"@lazy-bot/core/services/plugin/index";import S from"@lazy-bot/core/services/plugin/watcher";import u from"@lazy-bot/core/services/auth/index";import f from"@lazy-bot/core/services/cli/index";import{initI18n as g,t as r}from"@lazy-bot/core/services/i18n/index";import o from"@lazy-bot/core/utils/logger";import E from"picocolors";import d from"node:path";import{Storage as h}from"@lazy-bot/core/utils/storage";import{messageBatcher as _}from"@lazy-bot/core/services/store/batcher";global.API_BASE_URL=e.API_BASE_URL,global.AUTH_TOKEN=null,global.AUTH_USER=null;const T=()=>{console.clear()},w=async()=>{T(),await g();try{c(),await h.clearTmp(),m(),await l(),await u.init(),await p.load(),e.PLUGIN_WATCHER&&global.AUTH_USER&&S.init(),await i.initSession({sessionId:e.WA_SESSION_NAME,usePairingCode:e.WA_USE_PAIRING_CODE}),o.info("[SYSTEM]",r("system.plugin_website",{url:E.cyanBright(d.join(global.API_BASE_URL,"plugins"))})),await f.init()}catch(t){o.fatal("[SYSTEM]",r("system.failed_to_start",{error:t.message??t})),process.exit(1)}};w(),process.on("unhandledRejection",async t=>{o.fatal("[SYSTEM]",r("system.unhandled_rejection",{reason:t})),await a("unhandledRejection")}),process.on("uncaughtException",async t=>{o.fatal("[SYSTEM]",r("system.uncaught_exception",{error:t.message??t})),await a("uncaughtException")});const a=async t=>{o.info("[SYSTEM]",`Received ${t}, executing graceful shutdown...`);try{await _.flush(),o.success("[SYSTEM]","Message buffer flushed to database."),await i.shutdown(),o.success("[SYSTEM]","WhatsApp sessions closed gracefully.")}catch(s){o.error("[SYSTEM]",`Error during shutdown: ${s.message}`)}finally{process.exit(0)}};process.on("SIGINT",()=>a("SIGINT")),process.on("SIGTERM",()=>a("SIGTERM"));
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IGRucyBmcm9tICdub2RlOmRucyc7XG5kbnMuc2V0RGVmYXVsdFJlc3VsdE9yZGVyKCdpcHY0Zmlyc3QnKTtcbmltcG9ydCB7IGluaXREaXJlY3RvcmllcyB9IGZyb20gJ0BsYXp5LWJvdC9jb3JlL3V0aWxzL3BhdGgnO1xuaW1wb3J0IHsgaW5pdERhdGFiYXNlIH0gZnJvbSAnQGxhenktYm90L2NvcmUvc2VydmljZXMvZGF0YWJhc2UvaW5kZXgnO1xuaW1wb3J0IHsgaW5pdENhY2hlIH0gZnJvbSAnQGxhenktYm90L2NvcmUvc2VydmljZXMvY2FjaGUvaW5kZXgnO1xuaW1wb3J0IGVudiBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9lbnYvaW5kZXgnO1xuaW1wb3J0IHdoYXRzYXBwIGZyb20gJ0BsYXp5LWJvdC9jb3JlL3NvY2tldC9pbmRleCc7XG5pbXBvcnQgcGx1Z2luTG9hZGVyIGZyb20gJ0BsYXp5LWJvdC9jb3JlL3NlcnZpY2VzL3BsdWdpbi9pbmRleCc7XG5pbXBvcnQgcGx1Z2luV2F0Y2hlciBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9wbHVnaW4vd2F0Y2hlcic7XG5pbXBvcnQgYXV0aFNlcnZpY2UgZnJvbSAnQGxhenktYm90L2NvcmUvc2VydmljZXMvYXV0aC9pbmRleCc7XG5pbXBvcnQgY2xpU2VydmljZSBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9jbGkvaW5kZXgnO1xuaW1wb3J0IHsgaW5pdEkxOG4sIHQgfSBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9pMThuL2luZGV4JztcbmltcG9ydCBsb2dnZXIgZnJvbSAnQGxhenktYm90L2NvcmUvdXRpbHMvbG9nZ2VyJztcbmltcG9ydCBwYyBmcm9tICdwaWNvY29sb3JzJztcbmltcG9ydCBwYXRoIGZyb20gJ25vZGU6cGF0aCc7XG5pbXBvcnQgeyBTdG9yYWdlIH0gZnJvbSAnQGxhenktYm90L2NvcmUvdXRpbHMvc3RvcmFnZSc7XG5pbXBvcnQgeyBtZXNzYWdlQmF0Y2hlciB9IGZyb20gJ0BsYXp5LWJvdC9jb3JlL3NlcnZpY2VzL3N0b3JlL2JhdGNoZXInO1xuZ2xvYmFsLkFQSV9CQVNFX1VSTCA9IGVudi5BUElfQkFTRV9VUkw7XG5nbG9iYWwuQVVUSF9UT0tFTiA9IG51bGw7XG5nbG9iYWwuQVVUSF9VU0VSID0gbnVsbDtcbmNvbnN0IGJvb3RTY3JlZW4gPSAoKSA9PiB7XG4gICAgY29uc29sZS5jbGVhcigpO1xufTtcbmNvbnN0IGJvb3RzdHJhcCA9IGFzeW5jICgpID0+IHtcbiAgICBib290U2NyZWVuKCk7XG4gICAgYXdhaXQgaW5pdEkxOG4oKTtcbiAgICB0cnkge1xuICAgICAgICBpbml0RGlyZWN0b3JpZXMoKTtcbiAgICAgICAgYXdhaXQgU3RvcmFnZS5jbGVhclRtcCgpO1xuICAgICAgICBpbml0Q2FjaGUoKTtcbiAgICAgICAgYXdhaXQgaW5pdERhdGFiYXNlKCk7XG4gICAgICAgIGF3YWl0IGF1dGhTZXJ2aWNlLmluaXQoKTtcbiAgICAgICAgYXdhaXQgcGx1Z2luTG9hZGVyLmxvYWQoKTtcbiAgICAgICAgaWYgKGVudi5QTFVHSU5fV0FUQ0hFUiAmJiBnbG9iYWwuQVVUSF9VU0VSKSB7XG4gICAgICAgICAgICBwbHVnaW5XYXRjaGVyLmluaXQoKTtcbiAgICAgICAgfVxuICAgICAgICBhd2FpdCB3aGF0c2FwcC5pbml0U2Vzc2lvbih7XG4gICAgICAgICAgICBzZXNzaW9uSWQ6IGVudi5XQV9TRVNTSU9OX05BTUUsXG4gICAgICAgICAgICB1c2VQYWlyaW5nQ29kZTogZW52LldBX1VTRV9QQUlSSU5HX0NPREUsXG4gICAgICAgIH0pO1xuICAgICAgICBsb2dnZXIuaW5mbygnW1NZU1RFTV0nLCB0KCdzeXN0ZW0ucGx1Z2luX3dlYnNpdGUnLCB7IHVybDogcGMuY3lhbkJyaWdodChwYXRoLmpvaW4oZ2xvYmFsLkFQSV9CQVNFX1VSTCwgJ3BsdWdpbnMnKSkgfSkpO1xuICAgICAgICBhd2FpdCBjbGlTZXJ2aWNlLmluaXQoKTtcbiAgICB9XG4gICAgY2F0Y2ggKGVycm9yKSB7XG4gICAgICAgIGxvZ2dlci5mYXRhbCgnW1NZU1RFTV0nLCB0KCdzeXN0ZW0uZmFpbGVkX3RvX3N0YXJ0JywgeyBlcnJvcjogZXJyb3IubWVzc2FnZSA/PyBlcnJvciB9KSk7XG4gICAgICAgIHByb2Nlc3MuZXhpdCgxKTtcbiAgICB9XG59O1xuYm9vdHN0cmFwKCk7XG5wcm9jZXNzLm9uKCd1bmhhbmRsZWRSZWplY3Rpb24nLCBhc3luYyAocmVhc29uKSA9PiB7XG4gICAgbG9nZ2VyLmZhdGFsKCdbU1lTVEVNXScsIHQoJ3N5c3RlbS51bmhhbmRsZWRfcmVqZWN0aW9uJywgeyByZWFzb24gfSkpO1xuICAgIGF3YWl0IGdyYWNlZnVsU2h1dGRvd24oJ3VuaGFuZGxlZFJlamVjdGlvbicpO1xufSk7XG5wcm9jZXNzLm9uKCd1bmNhdWdodEV4Y2VwdGlvbicsIGFzeW5jIChlcnJvcikgPT4ge1xuICAgIGxvZ2dlci5mYXRhbCgnW1NZU1RFTV0nLCB0KCdzeXN0ZW0udW5jYXVnaHRfZXhjZXB0aW9uJywgeyBlcnJvcjogZXJyb3IubWVzc2FnZSA/PyBlcnJvciB9KSk7XG4gICAgYXdhaXQgZ3JhY2VmdWxTaHV0ZG93bigndW5jYXVnaHRFeGNlcHRpb24nKTtcbn0pO1xuY29uc3QgZ3JhY2VmdWxTaHV0ZG93biA9IGFzeW5jIChzaWduYWwpID0+IHtcbiAgICBsb2dnZXIuaW5mbygnW1NZU1RFTV0nLCBgUmVjZWl2ZWQgJHtzaWduYWx9LCBleGVjdXRpbmcgZ3JhY2VmdWwgc2h1dGRvd24uLi5gKTtcbiAgICB0cnkge1xuICAgICAgICBhd2FpdCBtZXNzYWdlQmF0Y2hlci5mbHVzaCgpO1xuICAgICAgICBsb2dnZXIuc3VjY2VzcygnW1NZU1RFTV0nLCAnTWVzc2FnZSBidWZmZXIgZmx1c2hlZCB0byBkYXRhYmFzZS4nKTtcbiAgICAgICAgYXdhaXQgd2hhdHNhcHAuc2h1dGRvd24oKTtcbiAgICAgICAgbG9nZ2VyLnN1Y2Nlc3MoJ1tTWVNURU1dJywgJ1doYXRzQXBwIHNlc3Npb25zIGNsb3NlZCBncmFjZWZ1bGx5LicpO1xuICAgIH1cbiAgICBjYXRjaCAoZXJyKSB7XG4gICAgICAgIGxvZ2dlci5lcnJvcignW1NZU1RFTV0nLCBgRXJyb3IgZHVyaW5nIHNodXRkb3duOiAke2Vyci5tZXNzYWdlfWApO1xuICAgIH1cbiAgICBmaW5hbGx5IHtcbiAgICAgICAgcHJvY2Vzcy5leGl0KDApO1xuICAgIH1cbn07XG5wcm9jZXNzLm9uKCdTSUdJTlQnLCAoKSA9PiBncmFjZWZ1bFNodXRkb3duKCdTSUdJTlQnKSk7XG5wcm9jZXNzLm9uKCdTSUdURVJNJywgKCkgPT4gZ3JhY2VmdWxTaHV0ZG93bignU0lHVEVSTScpKTtcbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLE9BQU9BLE1BQVMsV0FDaEJBLEVBQUksc0JBQXNCLFdBQVcsRUFDckMsT0FBUyxtQkFBQUMsTUFBdUIsNEJBQ2hDLE9BQVMsZ0JBQUFDLE1BQW9CLHlDQUM3QixPQUFTLGFBQUFDLE1BQWlCLHNDQUMxQixPQUFPQyxNQUFTLG9DQUNoQixPQUFPQyxNQUFjLDhCQUNyQixPQUFPQyxNQUFrQix1Q0FDekIsT0FBT0MsTUFBbUIseUNBQzFCLE9BQU9DLE1BQWlCLHFDQUN4QixPQUFPQyxNQUFnQixvQ0FDdkIsT0FBUyxZQUFBQyxFQUFVLEtBQUFDLE1BQVMscUNBQzVCLE9BQU9DLE1BQVksOEJBQ25CLE9BQU9DLE1BQVEsYUFDZixPQUFPQyxNQUFVLFlBQ2pCLE9BQVMsV0FBQUMsTUFBZSwrQkFDeEIsT0FBUyxrQkFBQUMsTUFBc0Isd0NBQy9CLE9BQU8sYUFBZVosRUFBSSxhQUMxQixPQUFPLFdBQWEsS0FDcEIsT0FBTyxVQUFZLEtBQ25CLE1BQU1hLEVBQWEsSUFBTSxDQUNyQixRQUFRLE1BQU0sQ0FDbEIsRUFDTUMsRUFBWSxTQUFZLENBQzFCRCxFQUFXLEVBQ1gsTUFBTVAsRUFBUyxFQUNmLEdBQUksQ0FDQVQsRUFBZ0IsRUFDaEIsTUFBTWMsRUFBUSxTQUFTLEVBQ3ZCWixFQUFVLEVBQ1YsTUFBTUQsRUFBYSxFQUNuQixNQUFNTSxFQUFZLEtBQUssRUFDdkIsTUFBTUYsRUFBYSxLQUFLLEVBQ3BCRixFQUFJLGdCQUFrQixPQUFPLFdBQzdCRyxFQUFjLEtBQUssRUFFdkIsTUFBTUYsRUFBUyxZQUFZLENBQ3ZCLFVBQVdELEVBQUksZ0JBQ2YsZUFBZ0JBLEVBQUksbUJBQ3hCLENBQUMsRUFDRFEsRUFBTyxLQUFLLFdBQVlELEVBQUUsd0JBQXlCLENBQUUsSUFBS0UsRUFBRyxXQUFXQyxFQUFLLEtBQUssT0FBTyxhQUFjLFNBQVMsQ0FBQyxDQUFFLENBQUMsQ0FBQyxFQUNySCxNQUFNTCxFQUFXLEtBQUssQ0FDMUIsT0FDT1UsRUFBTyxDQUNWUCxFQUFPLE1BQU0sV0FBWUQsRUFBRSx5QkFBMEIsQ0FBRSxNQUFPUSxFQUFNLFNBQVdBLENBQU0sQ0FBQyxDQUFDLEVBQ3ZGLFFBQVEsS0FBSyxDQUFDLENBQ2xCLENBQ0osRUFDQUQsRUFBVSxFQUNWLFFBQVEsR0FBRyxxQkFBc0IsTUFBT0UsR0FBVyxDQUMvQ1IsRUFBTyxNQUFNLFdBQVlELEVBQUUsNkJBQThCLENBQUUsT0FBQVMsQ0FBTyxDQUFDLENBQUMsRUFDcEUsTUFBTUMsRUFBaUIsb0JBQW9CLENBQy9DLENBQUMsRUFDRCxRQUFRLEdBQUcsb0JBQXFCLE1BQU9GLEdBQVUsQ0FDN0NQLEVBQU8sTUFBTSxXQUFZRCxFQUFFLDRCQUE2QixDQUFFLE1BQU9RLEVBQU0sU0FBV0EsQ0FBTSxDQUFDLENBQUMsRUFDMUYsTUFBTUUsRUFBaUIsbUJBQW1CLENBQzlDLENBQUMsRUFDRCxNQUFNQSxFQUFtQixNQUFPQyxHQUFXLENBQ3ZDVixFQUFPLEtBQUssV0FBWSxZQUFZVSxDQUFNLGtDQUFrQyxFQUM1RSxHQUFJLENBQ0EsTUFBTU4sRUFBZSxNQUFNLEVBQzNCSixFQUFPLFFBQVEsV0FBWSxxQ0FBcUMsRUFDaEUsTUFBTVAsRUFBUyxTQUFTLEVBQ3hCTyxFQUFPLFFBQVEsV0FBWSxzQ0FBc0MsQ0FDckUsT0FDT1csRUFBSyxDQUNSWCxFQUFPLE1BQU0sV0FBWSwwQkFBMEJXLEVBQUksT0FBTyxFQUFFLENBQ3BFLFFBQ0EsQ0FDSSxRQUFRLEtBQUssQ0FBQyxDQUNsQixDQUNKLEVBQ0EsUUFBUSxHQUFHLFNBQVUsSUFBTUYsRUFBaUIsUUFBUSxDQUFDLEVBQ3JELFFBQVEsR0FBRyxVQUFXLElBQU1BLEVBQWlCLFNBQVMsQ0FBQyIsCiAgIm5hbWVzIjogWyJkbnMiLCAiaW5pdERpcmVjdG9yaWVzIiwgImluaXREYXRhYmFzZSIsICJpbml0Q2FjaGUiLCAiZW52IiwgIndoYXRzYXBwIiwgInBsdWdpbkxvYWRlciIsICJwbHVnaW5XYXRjaGVyIiwgImF1dGhTZXJ2aWNlIiwgImNsaVNlcnZpY2UiLCAiaW5pdEkxOG4iLCAidCIsICJsb2dnZXIiLCAicGMiLCAicGF0aCIsICJTdG9yYWdlIiwgIm1lc3NhZ2VCYXRjaGVyIiwgImJvb3RTY3JlZW4iLCAiYm9vdHN0cmFwIiwgImVycm9yIiwgInJlYXNvbiIsICJncmFjZWZ1bFNodXRkb3duIiwgInNpZ25hbCIsICJlcnIiXQp9Cg==
+import dns from 'node:dns';
+dns.setDefaultResultOrder('ipv4first');
+if (typeof process.setSourceMapsEnabled === 'function') {
+    process.setSourceMapsEnabled(true);
+}
+import { initDirectories } from '@lazy/core/utils/path';
+import { initDatabase } from '@lazy/core/services/database/index';
+import { initCache } from '@lazy/core/services/cache/index';
+import env from '@lazy/core/services/env/index';
+import whatsapp from '@lazy/core/socket/index';
+import pluginLoader from '@lazy/core/services/plugin/index';
+import pluginWatcher from '@lazy/core/services/plugin/watcher';
+import authService from '@lazy/core/services/auth/index';
+import cliService from '@lazy/core/services/cli/index';
+import { initI18n, t } from '@lazy/core/services/i18n/index';
+import logger from '@lazy/core/utils/logger';
+import pc from 'picocolors';
+import path from 'node:path';
+import { Storage } from '@lazy/core/utils/storage';
+import { messageBatcher } from '@lazy/core/services/store/batcher';
+global.API_BASE_URL = env.API_BASE_URL;
+global.AUTH_TOKEN = null;
+global.AUTH_USER = null;
+const bootScreen = () => {
+    console.clear();
+};
+const bootstrap = async () => {
+    bootScreen();
+    await initI18n();
+    try {
+        initDirectories();
+        await Storage.clearTmp();
+        initCache();
+        await initDatabase();
+        await authService.init();
+        await pluginLoader.load();
+        if (env.PLUGIN_WATCHER && global.AUTH_USER) {
+            pluginWatcher.init();
+        }
+        await whatsapp.initSession({
+            sessionId: env.WA_SESSION_NAME,
+            usePairingCode: env.WA_USE_PAIRING_CODE,
+        });
+        logger.info('[SYSTEM]', t('system.plugin_website', {
+            url: pc.cyanBright(path.join(global.API_BASE_URL, 'plugins')),
+        }));
+        await cliService.init();
+    }
+    catch (error) {
+        logger.fatal('[SYSTEM]', t('system.failed_to_start', { error: error.message ?? error }));
+        await gracefulShutdown('STARTUP_ERROR');
+    }
+};
+bootstrap();
+let isShuttingDown = false;
+const gracefulShutdown = async (signal) => {
+    if (isShuttingDown)
+        return;
+    isShuttingDown = true;
+    logger.info('[SYSTEM]', `Received ${signal}, executing graceful shutdown...`);
+    try {
+        await messageBatcher.flush();
+        logger.success('[SYSTEM]', 'Message buffer flushed to database.');
+        await whatsapp.shutdown();
+        logger.success('[SYSTEM]', 'WhatsApp sessions closed gracefully.');
+    }
+    catch (err) {
+        logger.error('[SYSTEM]', `Error during shutdown: ${err.message}`);
+    }
+    finally {
+        process.exit(signal === 'STARTUP_ERROR' ||
+            signal === 'uncaughtException' ||
+            signal === 'unhandledRejection'
+            ? 1
+            : 0);
+    }
+};
+process.on('unhandledRejection', async (reason) => {
+    logger.fatal('[SYSTEM]', t('system.unhandled_rejection', { reason }));
+    await gracefulShutdown('unhandledRejection');
+});
+process.on('uncaughtException', async (error) => {
+    logger.fatal('[SYSTEM]', t('system.uncaught_exception', { error: error.message ?? error }));
+    await gracefulShutdown('uncaughtException');
+});
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGQUIT', () => gracefulShutdown('SIGQUIT'));
+process.on('SIGHUP', () => gracefulShutdown('SIGHUP'));

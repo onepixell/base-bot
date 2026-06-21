@@ -1,2 +1,54 @@
-import{z as e}from"zod";const o=e.object({WA_AUTH_STATE:e.enum(["file","database"]).default("file"),WA_USE_PAIRING_CODE:e.preprocess(t=>{if(typeof t=="string"){if(t.toLowerCase()==="true")return!0;if(t.toLowerCase()==="false")return!1}return t},e.boolean()).default(!1),KEY:e.string(),TZ:e.string().default("UTC"),CACHE_DRIVER:e.enum(["redis","lru"]).default("lru"),REDIS_URL:e.string().optional(),DEFAULT_LANG:e.string().default("en"),PLUGIN_WATCHER:e.preprocess(t=>{if(typeof t=="string"){if(t.toLowerCase()==="true")return!0;if(t.toLowerCase()==="false")return!1}return t},e.boolean()).default(!1),API_BASE_URL:e.string().default("https://lazybot.site"),DB_CONNECTION:e.enum(["sqlite","mysql"]),DB_HOST:e.string().optional(),DB_PORT:e.coerce.number().default(3e3),DB_USER:e.string().optional(),DB_PASSWORD:e.string().optional(),DB_DATABASE:e.string().optional(),WA_SESSION_NAME:e.string().default("lazy"),STORE_ENABLED:e.preprocess(t=>t==="true",e.boolean()).default(!0),STORE_CHATS:e.preprocess(t=>t==="true",e.boolean()).default(!0),STORE_CONTACTS:e.preprocess(t=>t==="true",e.boolean()).default(!0),STORE_GROUPS:e.preprocess(t=>t==="true",e.boolean()).default(!0),STORE_MESSAGES:e.preprocess(t=>t==="true",e.boolean()).default(!1),STORE_MESSAGE_RETENTION_DAYS:e.coerce.number().default(7),STORE_BATCH_INTERVAL_MS:e.coerce.number().default(5e3)});export{o as envSchema};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IHsgeiB9IGZyb20gJ3pvZCc7XG5leHBvcnQgY29uc3QgZW52U2NoZW1hID0gei5vYmplY3Qoe1xuICAgIFdBX0FVVEhfU1RBVEU6IHouZW51bShbJ2ZpbGUnLCAnZGF0YWJhc2UnXSkuZGVmYXVsdCgnZmlsZScpLFxuICAgIFdBX1VTRV9QQUlSSU5HX0NPREU6IHpcbiAgICAgICAgLnByZXByb2Nlc3MoKHZhbCkgPT4ge1xuICAgICAgICBpZiAodHlwZW9mIHZhbCA9PT0gJ3N0cmluZycpIHtcbiAgICAgICAgICAgIGlmICh2YWwudG9Mb3dlckNhc2UoKSA9PT0gJ3RydWUnKVxuICAgICAgICAgICAgICAgIHJldHVybiB0cnVlO1xuICAgICAgICAgICAgaWYgKHZhbC50b0xvd2VyQ2FzZSgpID09PSAnZmFsc2UnKVxuICAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTtcbiAgICAgICAgfVxuICAgICAgICByZXR1cm4gdmFsO1xuICAgIH0sIHouYm9vbGVhbigpKVxuICAgICAgICAuZGVmYXVsdChmYWxzZSksXG4gICAgS0VZOiB6LnN0cmluZygpLFxuICAgIFRaOiB6LnN0cmluZygpLmRlZmF1bHQoJ1VUQycpLFxuICAgIENBQ0hFX0RSSVZFUjogei5lbnVtKFsncmVkaXMnLCAnbHJ1J10pLmRlZmF1bHQoJ2xydScpLFxuICAgIFJFRElTX1VSTDogei5zdHJpbmcoKS5vcHRpb25hbCgpLFxuICAgIERFRkFVTFRfTEFORzogei5zdHJpbmcoKS5kZWZhdWx0KCdlbicpLFxuICAgIFBMVUdJTl9XQVRDSEVSOiB6XG4gICAgICAgIC5wcmVwcm9jZXNzKCh2YWwpID0+IHtcbiAgICAgICAgaWYgKHR5cGVvZiB2YWwgPT09ICdzdHJpbmcnKSB7XG4gICAgICAgICAgICBpZiAodmFsLnRvTG93ZXJDYXNlKCkgPT09ICd0cnVlJylcbiAgICAgICAgICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgICAgICAgIGlmICh2YWwudG9Mb3dlckNhc2UoKSA9PT0gJ2ZhbHNlJylcbiAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICAgIH1cbiAgICAgICAgcmV0dXJuIHZhbDtcbiAgICB9LCB6LmJvb2xlYW4oKSlcbiAgICAgICAgLmRlZmF1bHQoZmFsc2UpLFxuICAgIEFQSV9CQVNFX1VSTDogei5zdHJpbmcoKS5kZWZhdWx0KCdodHRwczovL2xhenlib3Quc2l0ZScpLFxuICAgIERCX0NPTk5FQ1RJT046IHouZW51bShbJ3NxbGl0ZScsICdteXNxbCddKSxcbiAgICBEQl9IT1NUOiB6LnN0cmluZygpLm9wdGlvbmFsKCksXG4gICAgREJfUE9SVDogei5jb2VyY2UubnVtYmVyKCkuZGVmYXVsdCgzMDAwKSxcbiAgICBEQl9VU0VSOiB6LnN0cmluZygpLm9wdGlvbmFsKCksXG4gICAgREJfUEFTU1dPUkQ6IHouc3RyaW5nKCkub3B0aW9uYWwoKSxcbiAgICBEQl9EQVRBQkFTRTogei5zdHJpbmcoKS5vcHRpb25hbCgpLFxuICAgIFdBX1NFU1NJT05fTkFNRTogei5zdHJpbmcoKS5kZWZhdWx0KCdsYXp5JyksXG4gICAgU1RPUkVfRU5BQkxFRDogei5wcmVwcm9jZXNzKCh2YWwpID0+IHZhbCA9PT0gJ3RydWUnLCB6LmJvb2xlYW4oKSkuZGVmYXVsdCh0cnVlKSxcbiAgICBTVE9SRV9DSEFUUzogei5wcmVwcm9jZXNzKCh2YWwpID0+IHZhbCA9PT0gJ3RydWUnLCB6LmJvb2xlYW4oKSkuZGVmYXVsdCh0cnVlKSxcbiAgICBTVE9SRV9DT05UQUNUUzogei5wcmVwcm9jZXNzKCh2YWwpID0+IHZhbCA9PT0gJ3RydWUnLCB6LmJvb2xlYW4oKSkuZGVmYXVsdCh0cnVlKSxcbiAgICBTVE9SRV9HUk9VUFM6IHoucHJlcHJvY2VzcygodmFsKSA9PiB2YWwgPT09ICd0cnVlJywgei5ib29sZWFuKCkpLmRlZmF1bHQodHJ1ZSksXG4gICAgU1RPUkVfTUVTU0FHRVM6IHoucHJlcHJvY2VzcygodmFsKSA9PiB2YWwgPT09ICd0cnVlJywgei5ib29sZWFuKCkpLmRlZmF1bHQoZmFsc2UpLFxuICAgIFNUT1JFX01FU1NBR0VfUkVURU5USU9OX0RBWVM6IHouY29lcmNlLm51bWJlcigpLmRlZmF1bHQoNyksXG4gICAgU1RPUkVfQkFUQ0hfSU5URVJWQUxfTVM6IHouY29lcmNlLm51bWJlcigpLmRlZmF1bHQoNTAwMCksXG59KTtcbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLE9BQVMsS0FBQUEsTUFBUyxNQUNYLE1BQU1DLEVBQVlELEVBQUUsT0FBTyxDQUM5QixjQUFlQSxFQUFFLEtBQUssQ0FBQyxPQUFRLFVBQVUsQ0FBQyxFQUFFLFFBQVEsTUFBTSxFQUMxRCxvQkFBcUJBLEVBQ2hCLFdBQVlFLEdBQVEsQ0FDckIsR0FBSSxPQUFPQSxHQUFRLFNBQVUsQ0FDekIsR0FBSUEsRUFBSSxZQUFZLElBQU0sT0FDdEIsTUFBTyxHQUNYLEdBQUlBLEVBQUksWUFBWSxJQUFNLFFBQ3RCLE1BQU8sRUFDZixDQUNBLE9BQU9BLENBQ1gsRUFBR0YsRUFBRSxRQUFRLENBQUMsRUFDVCxRQUFRLEVBQUssRUFDbEIsSUFBS0EsRUFBRSxPQUFPLEVBQ2QsR0FBSUEsRUFBRSxPQUFPLEVBQUUsUUFBUSxLQUFLLEVBQzVCLGFBQWNBLEVBQUUsS0FBSyxDQUFDLFFBQVMsS0FBSyxDQUFDLEVBQUUsUUFBUSxLQUFLLEVBQ3BELFVBQVdBLEVBQUUsT0FBTyxFQUFFLFNBQVMsRUFDL0IsYUFBY0EsRUFBRSxPQUFPLEVBQUUsUUFBUSxJQUFJLEVBQ3JDLGVBQWdCQSxFQUNYLFdBQVlFLEdBQVEsQ0FDckIsR0FBSSxPQUFPQSxHQUFRLFNBQVUsQ0FDekIsR0FBSUEsRUFBSSxZQUFZLElBQU0sT0FDdEIsTUFBTyxHQUNYLEdBQUlBLEVBQUksWUFBWSxJQUFNLFFBQ3RCLE1BQU8sRUFDZixDQUNBLE9BQU9BLENBQ1gsRUFBR0YsRUFBRSxRQUFRLENBQUMsRUFDVCxRQUFRLEVBQUssRUFDbEIsYUFBY0EsRUFBRSxPQUFPLEVBQUUsUUFBUSxzQkFBc0IsRUFDdkQsY0FBZUEsRUFBRSxLQUFLLENBQUMsU0FBVSxPQUFPLENBQUMsRUFDekMsUUFBU0EsRUFBRSxPQUFPLEVBQUUsU0FBUyxFQUM3QixRQUFTQSxFQUFFLE9BQU8sT0FBTyxFQUFFLFFBQVEsR0FBSSxFQUN2QyxRQUFTQSxFQUFFLE9BQU8sRUFBRSxTQUFTLEVBQzdCLFlBQWFBLEVBQUUsT0FBTyxFQUFFLFNBQVMsRUFDakMsWUFBYUEsRUFBRSxPQUFPLEVBQUUsU0FBUyxFQUNqQyxnQkFBaUJBLEVBQUUsT0FBTyxFQUFFLFFBQVEsTUFBTSxFQUMxQyxjQUFlQSxFQUFFLFdBQVlFLEdBQVFBLElBQVEsT0FBUUYsRUFBRSxRQUFRLENBQUMsRUFBRSxRQUFRLEVBQUksRUFDOUUsWUFBYUEsRUFBRSxXQUFZRSxHQUFRQSxJQUFRLE9BQVFGLEVBQUUsUUFBUSxDQUFDLEVBQUUsUUFBUSxFQUFJLEVBQzVFLGVBQWdCQSxFQUFFLFdBQVlFLEdBQVFBLElBQVEsT0FBUUYsRUFBRSxRQUFRLENBQUMsRUFBRSxRQUFRLEVBQUksRUFDL0UsYUFBY0EsRUFBRSxXQUFZRSxHQUFRQSxJQUFRLE9BQVFGLEVBQUUsUUFBUSxDQUFDLEVBQUUsUUFBUSxFQUFJLEVBQzdFLGVBQWdCQSxFQUFFLFdBQVlFLEdBQVFBLElBQVEsT0FBUUYsRUFBRSxRQUFRLENBQUMsRUFBRSxRQUFRLEVBQUssRUFDaEYsNkJBQThCQSxFQUFFLE9BQU8sT0FBTyxFQUFFLFFBQVEsQ0FBQyxFQUN6RCx3QkFBeUJBLEVBQUUsT0FBTyxPQUFPLEVBQUUsUUFBUSxHQUFJLENBQzNELENBQUMiLAogICJuYW1lcyI6IFsieiIsICJlbnZTY2hlbWEiLCAidmFsIl0KfQo=
+import { z } from 'zod';
+export const envSchema = z.object({
+    WA_AUTH_STATE: z.enum(['file', 'database']).default('file'),
+    WA_USE_PAIRING_CODE: z
+        .preprocess((val) => {
+        if (typeof val === 'string') {
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
+        }
+        return val;
+    }, z.boolean())
+        .default(false),
+    KEY: z.string(),
+    TZ: z.string().default('UTC'),
+    CACHE_DRIVER: z.enum(['redis', 'lru']).default('lru'),
+    REDIS_URL: z.string().optional(),
+    DEFAULT_LANG: z.string().default('en'),
+    PLUGIN_WATCHER: z
+        .preprocess((val) => {
+        if (typeof val === 'string') {
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
+        }
+        return val;
+    }, z.boolean())
+        .default(false),
+    API_BASE_URL: z.string().default('https://lazybot.site'),
+    DB_CONNECTION: z.enum(['sqlite', 'mysql']),
+    DB_HOST: z.string().optional(),
+    DB_PORT: z.coerce.number().default(3000),
+    DB_USER: z.string().optional(),
+    DB_PASSWORD: z.string().optional(),
+    DB_DATABASE: z.string().optional(),
+    WA_SESSION_NAME: z.string().default('lazy'),
+    STORE_ENABLED: z
+        .preprocess((val) => val === 'true', z.boolean())
+        .default(true),
+    STORE_CHATS: z.preprocess((val) => val === 'true', z.boolean()).default(true),
+    STORE_CONTACTS: z
+        .preprocess((val) => val === 'true', z.boolean())
+        .default(true),
+    STORE_GROUPS: z
+        .preprocess((val) => val === 'true', z.boolean())
+        .default(true),
+    STORE_MESSAGES: z
+        .preprocess((val) => val === 'true', z.boolean())
+        .default(false),
+    STORE_MESSAGE_RETENTION_DAYS: z.coerce.number().default(7),
+    STORE_BATCH_INTERVAL_MS: z.coerce.number().default(5000),
+});

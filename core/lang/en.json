@@ -128,6 +128,9 @@
       },
       "plugin_install": {
         "description": "Install a plugin from the registry",
+        "flags": {
+          "workspace": "Install the plugin into the workspace directory for development"
+        },
         "errors": {
           "PLUGIN_NOT_FOUND": "The requested plugin was not found or is not published.",
           "PLUGIN_VERSION_NOT_FOUND": "The specified plugin version was not found."
@@ -170,8 +173,10 @@
         "metadata_description": "Description: {description}",
         "confirm": "Are you sure you want to publish \"{pluginName}\" version {version}?",
         "packaging": "Packaging and uploading plugin...",
-        "success": "Successfully published version {version}!",
-        "published": "Plugin {pluginName} is now published.",
+        "success_new": "Successfully published new plugin version {version}!",
+        "success_update": "Successfully published version update {version}!",
+        "published_new": "Plugin {pluginName} is now published.",
+        "published_update": "Plugin {pluginName} has been updated.",
         "view_web": "View on Web: {url}",
         "failed": "Publish failed: {error}",
         "errors": {
@@ -179,7 +184,9 @@
           "INVALID_MANIFEST_JSON": "The package.json file has an invalid JSON format.",
           "UNAUTHORIZED_PLUGIN_OWNER": "You do not own this plugin and cannot publish versions for it.",
           "PLUGIN_VERSION_ALREADY_EXISTS": "This plugin version has already been published.",
-          "VERSION_MUST_BE_GREATER": "The version must be greater than the current latest version."
+          "VERSION_MUST_BE_GREATER": "The version must be greater than the current latest version.",
+          "INVALID_NAMESPACE": "The plugin name '{name}' in package.json is invalid. Since you are logged in as '{account}', the plugin name must use the format '{expected}plugin-name'.",
+          "INVALID_MANIFEST_NAME": "The plugin name in package.json does not match the requested publisher namespace."
         }
       },
       "plugin_upgrade": {
@@ -232,6 +239,15 @@
         "reload_success": "Plugin '{pluginKey}' reloaded successfully.",
         "not_found": "Plugin not found: {pluginKey}. {suggestion}",
         "available": "Available plugins:"
+      },
+      "services_switch": {
+        "description": "Switch between logged-in accounts",
+        "intro": "Switch Account",
+        "no_accounts": "No accounts found. Please login first.",
+        "select_account": "Select an account to switch to:",
+        "new_login": "[+] Login with another account",
+        "current_active": "Currently active: {name}",
+        "success": "Successfully switched to {name}"
       },
       "services_login": {
         "description": "Login to lazy-bot web services",

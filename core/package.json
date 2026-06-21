@@ -1,5 +1,5 @@
 {
-  "name": "@lazy-bot/core",
+  "name": "@lazy/core",
   "version": "1.0.0",
   "type": "module",
   "exports": {

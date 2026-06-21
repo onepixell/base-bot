@@ -1,2 +1,37 @@
-import t from"@lazy-bot/core/services/env/index";import{dirStorage as s}from"@lazy-bot/core/utils/path";import i from"path";import{fileURLToPath as a}from"url";const o=a(import.meta.url),e=i.dirname(o),r=o.endsWith(".js"),n=r?[".js"]:[".ts"],_={mysql:{client:"mysql2",connection:{host:t.DB_HOST,port:t.DB_PORT,user:t.DB_USER,password:t.DB_PASSWORD,database:t.DB_DATABASE},migrations:{directory:i.join(e,"migrations"),tableName:"knex_migrations",loadExtensions:n}},sqlite:{client:"sqlite3",connection:{filename:s("database.sqlite")},useNullAsDefault:!0,migrations:{directory:i.join(e,"migrations"),tableName:"knex_migrations",loadExtensions:n}}};export{_ as databaseConfig};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IGVudiBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9lbnYvaW5kZXgnO1xuaW1wb3J0IHsgZGlyU3RvcmFnZSB9IGZyb20gJ0BsYXp5LWJvdC9jb3JlL3V0aWxzL3BhdGgnO1xuaW1wb3J0IHBhdGggZnJvbSAncGF0aCc7XG5pbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAndXJsJztcbmNvbnN0IF9fZmlsZW5hbWUgPSBmaWxlVVJMVG9QYXRoKGltcG9ydC5tZXRhLnVybCk7XG5jb25zdCBfX2Rpcm5hbWUgPSBwYXRoLmRpcm5hbWUoX19maWxlbmFtZSk7XG5jb25zdCBpc0NvbXBpbGVkID0gX19maWxlbmFtZS5lbmRzV2l0aCgnLmpzJyk7XG5jb25zdCBsb2FkRXh0ZW5zaW9ucyA9IGlzQ29tcGlsZWQgPyBbJy5qcyddIDogWycudHMnXTtcbmV4cG9ydCBjb25zdCBkYXRhYmFzZUNvbmZpZyA9IHtcbiAgICBteXNxbDoge1xuICAgICAgICBjbGllbnQ6ICdteXNxbDInLFxuICAgICAgICBjb25uZWN0aW9uOiB7XG4gICAgICAgICAgICBob3N0OiBlbnYuREJfSE9TVCxcbiAgICAgICAgICAgIHBvcnQ6IGVudi5EQl9QT1JULFxuICAgICAgICAgICAgdXNlcjogZW52LkRCX1VTRVIsXG4gICAgICAgICAgICBwYXNzd29yZDogZW52LkRCX1BBU1NXT1JELFxuICAgICAgICAgICAgZGF0YWJhc2U6IGVudi5EQl9EQVRBQkFTRSxcbiAgICAgICAgfSxcbiAgICAgICAgbWlncmF0aW9uczoge1xuICAgICAgICAgICAgZGlyZWN0b3J5OiBwYXRoLmpvaW4oX19kaXJuYW1lLCAnbWlncmF0aW9ucycpLFxuICAgICAgICAgICAgdGFibGVOYW1lOiAna25leF9taWdyYXRpb25zJyxcbiAgICAgICAgICAgIGxvYWRFeHRlbnNpb25zLFxuICAgICAgICB9LFxuICAgIH0sXG4gICAgc3FsaXRlOiB7XG4gICAgICAgIGNsaWVudDogJ3NxbGl0ZTMnLFxuICAgICAgICBjb25uZWN0aW9uOiB7XG4gICAgICAgICAgICBmaWxlbmFtZTogZGlyU3RvcmFnZSgnZGF0YWJhc2Uuc3FsaXRlJyksXG4gICAgICAgIH0sXG4gICAgICAgIHVzZU51bGxBc0RlZmF1bHQ6IHRydWUsXG4gICAgICAgIG1pZ3JhdGlvbnM6IHtcbiAgICAgICAgICAgIGRpcmVjdG9yeTogcGF0aC5qb2luKF9fZGlybmFtZSwgJ21pZ3JhdGlvbnMnKSxcbiAgICAgICAgICAgIHRhYmxlTmFtZTogJ2tuZXhfbWlncmF0aW9ucycsXG4gICAgICAgICAgICBsb2FkRXh0ZW5zaW9ucyxcbiAgICAgICAgfSxcbiAgICB9LFxufTtcbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLE9BQU9BLE1BQVMsb0NBQ2hCLE9BQVMsY0FBQUMsTUFBa0IsNEJBQzNCLE9BQU9DLE1BQVUsT0FDakIsT0FBUyxpQkFBQUMsTUFBcUIsTUFDOUIsTUFBTUMsRUFBYUQsRUFBYyxZQUFZLEdBQUcsRUFDMUNFLEVBQVlILEVBQUssUUFBUUUsQ0FBVSxFQUNuQ0UsRUFBYUYsRUFBVyxTQUFTLEtBQUssRUFDdENHLEVBQWlCRCxFQUFhLENBQUMsS0FBSyxFQUFJLENBQUMsS0FBSyxFQUN2Q0UsRUFBaUIsQ0FDMUIsTUFBTyxDQUNILE9BQVEsU0FDUixXQUFZLENBQ1IsS0FBTVIsRUFBSSxRQUNWLEtBQU1BLEVBQUksUUFDVixLQUFNQSxFQUFJLFFBQ1YsU0FBVUEsRUFBSSxZQUNkLFNBQVVBLEVBQUksV0FDbEIsRUFDQSxXQUFZLENBQ1IsVUFBV0UsRUFBSyxLQUFLRyxFQUFXLFlBQVksRUFDNUMsVUFBVyxrQkFDWCxlQUFBRSxDQUNKLENBQ0osRUFDQSxPQUFRLENBQ0osT0FBUSxVQUNSLFdBQVksQ0FDUixTQUFVTixFQUFXLGlCQUFpQixDQUMxQyxFQUNBLGlCQUFrQixHQUNsQixXQUFZLENBQ1IsVUFBV0MsRUFBSyxLQUFLRyxFQUFXLFlBQVksRUFDNUMsVUFBVyxrQkFDWCxlQUFBRSxDQUNKLENBQ0osQ0FDSiIsCiAgIm5hbWVzIjogWyJlbnYiLCAiZGlyU3RvcmFnZSIsICJwYXRoIiwgImZpbGVVUkxUb1BhdGgiLCAiX19maWxlbmFtZSIsICJfX2Rpcm5hbWUiLCAiaXNDb21waWxlZCIsICJsb2FkRXh0ZW5zaW9ucyIsICJkYXRhYmFzZUNvbmZpZyJdCn0K
+import env from '@lazy/core/services/env/index';
+import { dirStorage } from '@lazy/core/utils/path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const isCompiled = __filename.endsWith('.js');
+const loadExtensions = isCompiled ? ['.js'] : ['.ts'];
+export const databaseConfig = {
+    mysql: {
+        client: 'mysql2',
+        connection: {
+            host: env.DB_HOST,
+            port: env.DB_PORT,
+            user: env.DB_USER,
+            password: env.DB_PASSWORD,
+            database: env.DB_DATABASE,
+        },
+        migrations: {
+            directory: path.join(__dirname, 'migrations'),
+            tableName: 'knex_migrations',
+            loadExtensions,
+        },
+    },
+    sqlite: {
+        client: 'sqlite3',
+        connection: {
+            filename: dirStorage('database.sqlite'),
+        },
+        useNullAsDefault: true,
+        migrations: {
+            directory: path.join(__dirname, 'migrations'),
+            tableName: 'knex_migrations',
+            loadExtensions,
+        },
+    },
+};

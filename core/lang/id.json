@@ -128,6 +128,9 @@
       },
       "plugin_install": {
         "description": "Menginstal plugin dari registry",
+        "flags": {
+          "workspace": "Instal plugin ke dalam direktori workspace untuk pengembangan"
+        },
         "errors": {
           "PLUGIN_NOT_FOUND": "Plugin yang diminta tidak ditemukan atau belum dipublikasikan.",
           "PLUGIN_VERSION_NOT_FOUND": "Versi plugin yang diminta tidak ditemukan."
@@ -170,8 +173,10 @@
         "metadata_description": "Deskripsi: {description}",
         "confirm": "Apakah Anda yakin ingin mempublikasikan \"{pluginName}\" versi {version}?",
         "packaging": "Mengemas dan mengunggah plugin...",
-        "success": "Berhasil mempublikasikan versi {version}!",
-        "published": "Plugin {pluginName} sekarang telah dipublikasikan.",
+        "success_new": "Berhasil membuat dan mempublikasikan plugin versi {version}!",
+        "success_update": "Berhasil mempublikasikan pembaruan versi {version}!",
+        "published_new": "Plugin {pluginName} sekarang telah dipublikasikan.",
+        "published_update": "Pembaruan plugin {pluginName} telah dipublikasikan.",
         "view_web": "Lihat di Web: {url}",
         "failed": "Gagal mempublikasikan: {error}",
         "errors": {
@@ -179,7 +184,9 @@
           "INVALID_MANIFEST_JSON": "File package.json memiliki format JSON yang tidak valid.",
           "UNAUTHORIZED_PLUGIN_OWNER": "Anda bukan pemilik plugin ini dan tidak dapat menerbitkan versi baru.",
           "PLUGIN_VERSION_ALREADY_EXISTS": "Versi plugin ini sudah pernah dipublikasikan.",
-          "VERSION_MUST_BE_GREATER": "Versi baru harus lebih tinggi dari versi terakhir yang dirilis."
+          "VERSION_MUST_BE_GREATER": "Versi baru harus lebih tinggi dari versi terakhir yang dirilis.",
+          "INVALID_NAMESPACE": "Nama plugin '{name}' di package.json tidak valid. Karena Anda login dengan akun '{account}', maka nama plugin wajib menggunakan format '{expected}nama-plugin'.",
+          "INVALID_MANIFEST_NAME": "Nama plugin di package.json tidak cocok dengan namespace publisher yang dikirimkan."
         }
       },
       "plugin_upgrade": {
@@ -232,6 +239,15 @@
         "reload_success": "Plugin '{pluginKey}' berhasil dimuat ulang.",
         "not_found": "Plugin tidak ditemukan: {pluginKey}. {suggestion}",
         "available": "Plugin yang tersedia:"
+      },
+      "services_switch": {
+        "description": "Beralih antar akun yang sudah login",
+        "intro": "Pilih Akun",
+        "no_accounts": "Tidak ada akun ditemukan. Silakan login terlebih dahulu.",
+        "select_account": "Pilih akun untuk beralih:",
+        "new_login": "[+] Login dengan akun lain",
+        "current_active": "Aktif saat ini: {name}",
+        "success": "Berhasil beralih ke akun {name}"
       },
       "services_login": {
         "description": "Login ke web services lazy-bot",

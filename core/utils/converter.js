@@ -2,8 +2,8 @@ import ff from 'fluent-ffmpeg';
 import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
-import { dirTemp, dirCore } from '@lazy-bot/core/utils/path';
-import logger from '@lazy-bot/core/utils/logger';
+import { dirTemp, dirCore } from '@lazy/core/utils/path';
+import logger from '@lazy/core/utils/logger';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 const execAsync = promisify(exec);
@@ -46,18 +46,19 @@ export async function imageToWebp(buffer, memeText) {
             const parts = memeText.split('|');
             const top = parts[0]?.trim() || '';
             const bottom = parts.length > 1 ? parts.slice(1).join('|').trim() : '';
-            const escape = (t) => t.replace(/'/g, "\u2019").replace(/:/g, "\\:");
-            const fontPath = path.join(dirCore(), 'assets/fonts/meme.ttf').replace(/\\/g, '/').replace(/:/g, '\\:');
+            const escape = (t) => t.replace(/'/g, '\u2019').replace(/:/g, '\\:');
+            const fontPath = path
+                .join(dirCore(), 'assets/fonts/meme.ttf')
+                .replace(/\\/g, '/')
+                .replace(/:/g, '\\:');
             if (top)
                 vf += `, drawtext=fontfile='${fontPath}':text='${escape(top)}':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=10:borderw=2:bordercolor=black`;
             if (bottom)
                 vf += `, drawtext=fontfile='${fontPath}':text='${escape(bottom)}':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=(h-text_h)-10:borderw=2:bordercolor=black`;
         }
-        vf += ", split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse";
-        cmd.addOutputOptions([
-            "-vcodec", "libwebp",
-            "-vf", vf
-        ]).toFormat('webp');
+        vf +=
+            ', split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse';
+        cmd.addOutputOptions(['-vcodec', 'libwebp', '-vf', vf]).toFormat('webp');
     });
 }
 export async function videoToWebp(buffer, memeText) {
@@ -67,31 +68,46 @@ export async function videoToWebp(buffer, memeText) {
             const parts = memeText.split('|');
             const top = parts[0]?.trim() || '';
             const bottom = parts.length > 1 ? parts.slice(1).join('|').trim() : '';
-            const escape = (t) => t.replace(/'/g, "\u2019").replace(/:/g, "\\:");
-            const fontPath = path.join(dirCore(), 'assets/fonts/meme.ttf').replace(/\\/g, '/').replace(/:/g, '\\:');
+            const escape = (t) => t.replace(/'/g, '\u2019').replace(/:/g, '\\:');
+            const fontPath = path
+                .join(dirCore(), 'assets/fonts/meme.ttf')
+                .replace(/\\/g, '/')
+                .replace(/:/g, '\\:');
             if (top)
                 vf += `, drawtext=fontfile='${fontPath}':text='${escape(top)}':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=10:borderw=2:bordercolor=black`;
             if (bottom)
                 vf += `, drawtext=fontfile='${fontPath}':text='${escape(bottom)}':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=(h-text_h)-10:borderw=2:bordercolor=black`;
         }
-        vf += ", split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse";
-        cmd.addOutputOptions([
-            "-vcodec", "libwebp",
-            "-vf", vf,
-            "-loop", "0",
-            "-ss", "00:00:00",
-            "-t", "00:00:05",
-            "-preset", "default",
-            "-an",
-            "-vsync", "0"
-        ]).toFormat('webp');
+        vf +=
+            ', split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse';
+        cmd
+            .addOutputOptions([
+            '-vcodec',
+            'libwebp',
+            '-vf',
+            vf,
+            '-loop',
+            '0',
+            '-ss',
+            '00:00:00',
+            '-t',
+            '00:00:05',
+            '-preset',
+            'default',
+            '-an',
+            '-vsync',
+            '0',
+        ])
+            .toFormat('webp');
     });
 }
 export async function stickerToImage(buffer) {
     return ffConvert(buffer, 'webp', 'png', (cmd) => {
         cmd.addOutputOptions([
-            "-vframes", "1",
-            "-vcodec", "png"
+            '-vframes',
+            '1',
+            '-vcodec',
+            'png',
         ]);
     });
 }
@@ -100,13 +116,19 @@ export async function stickerToVideo(buffer) {
     await fs.writeFile(tmpIn, buffer);
     try {
         return await ffConvert(buffer, 'webp', 'mp4', (cmd) => {
-            cmd.inputOptions(["-vcodec", "libwebp_anim"]);
-            cmd.addOutputOptions([
-                "-vf", "crop=trunc(iw/2)*2:trunc(ih/2)*2",
-                "-b:v", "2M",
-                "-vcodec", "libx264",
-                "-pix_fmt", "yuv420p"
-            ]).toFormat('mp4');
+            cmd.inputOptions(['-vcodec', 'libwebp_anim']);
+            cmd
+                .addOutputOptions([
+                '-vf',
+                'crop=trunc(iw/2)*2:trunc(ih/2)*2',
+                '-b:v',
+                '2M',
+                '-vcodec',
+                'libx264',
+                '-pix_fmt',
+                'yuv420p',
+            ])
+                .toFormat('mp4');
         });
     }
     catch (err) {
@@ -116,12 +138,18 @@ export async function stickerToVideo(buffer) {
             await execAsync(`convert ${tmpIn} ${tmpGif}`);
             const gifBuffer = await fs.readFile(tmpGif);
             return await ffConvert(gifBuffer, 'gif', 'mp4', (cmd) => {
-                cmd.addOutputOptions([
-                    "-vf", "crop=trunc(iw/2)*2:trunc(ih/2)*2",
-                    "-b:v", "2M",
-                    "-vcodec", "libx264",
-                    "-pix_fmt", "yuv420p"
-                ]).toFormat('mp4');
+                cmd
+                    .addOutputOptions([
+                    '-vf',
+                    'crop=trunc(iw/2)*2:trunc(ih/2)*2',
+                    '-b:v',
+                    '2M',
+                    '-vcodec',
+                    'libx264',
+                    '-pix_fmt',
+                    'yuv420p',
+                ])
+                    .toFormat('mp4');
             });
         }
         catch (magickErr) {
@@ -142,13 +170,15 @@ export async function toAudio(buffer, ext = 'mp3') {
 }
 export async function toPTT(buffer) {
     return ffConvert(buffer, 'mp3', 'ogg', (cmd) => {
-        cmd.audioCodec('libopus')
-            .toFormat('ogg')
-            .addOutputOptions([
-            '-ac', '1',
-            '-ar', '48000',
-            '-b:a', '128k',
-            '-map', 'a'
+        cmd.audioCodec('libopus').toFormat('ogg').addOutputOptions([
+            '-ac',
+            '1',
+            '-ar',
+            '48000',
+            '-b:a',
+            '128k',
+            '-map',
+            'a',
         ]);
     });
 }
@@ -160,12 +190,18 @@ export async function toVideo(buffer, ext = 'mp4') {
 export async function compressVideo(buffer) {
     return ffConvert(buffer, 'mp4', 'mp4', (cmd) => {
         cmd.addOutputOptions([
-            '-vcodec', 'libx264',
-            '-crf', '28',
-            '-preset', 'faster',
-            '-c:a', 'aac',
-            '-b:a', '128k',
-            '-movflags', '+faststart'
+            '-vcodec',
+            'libx264',
+            '-crf',
+            '28',
+            '-preset',
+            'faster',
+            '-c:a',
+            'aac',
+            '-b:a',
+            '128k',
+            '-movflags',
+            '+faststart',
         ]);
     });
 }

@@ -1,3 +1,91 @@
-import{getNestedValue as L}from"@lazy-bot/core/utils/helpers";import{interpolateString as _}from"@lazy-bot/core/utils/helpers";import u from"@lazy-bot/core/services/plugin/index";import o from"@lazy-bot/core/utils/logger";import m from"@lazy-bot/core/services/env/index";import l from"fs/promises";import f from"path";let A=m.DEFAULT_LANG;const g=new Map,i=function(e,r={},t){let n="core",s=e;if(e.includes(":")){const d=e.split(":");n=d[0],s=d[1]}const c=t||A;let a;n==="core"?(a=g.get(c),a||(a=g.get("en")||{})):(a=u.languages.get(`${n}:${c}`),a||(a=u.languages.get(`${n}:en`)||{}));const p=L(a,s);return typeof p=="string"?_(p,r):e.includes(":")?e.split(":")[1]:e};async function x(){const e=f.join(process.cwd(),"core","lang");try{const r=await l.readdir(e);await Promise.all(r.map(async t=>{if(t.endsWith(".json"))try{const n=t.replace(".json",""),s=await l.readFile(f.join(e,t),"utf-8"),c=JSON.parse(s);g.set(n,c)}catch{o.fatal("[i18n]",i("i18n.load_failed",{file:t})),process.exit(1)}}))}catch{o.fatal("[i18n]",i("i18n.folder_not_found",{dir:e})),process.exit(1)}}async function T(e){try{A=e,m.DEFAULT_LANG=e;const r=f.resolve(process.cwd(),".env");let t=await l.readFile(r,"utf-8").catch(()=>"");const n=/^DEFAULT_LANG=.*$/m;return n.test(t)?t=t.replace(n,`DEFAULT_LANG=${e}`):t+=`
-DEFAULT_LANG=${e}`,await l.writeFile(r,t,"utf-8"),o.ready("[i18n]",i("i18n.lang_changed",{lang:e})),!0}catch(r){return o.error("[i18n]",i("i18n.lang_change_failed",{lang:e,error:r?.message??r})),!1}}async function $(){await x(),o.success("[i18n]",i("i18n.initialized"))}const h=()=>Array.from(g.keys());export{A as currentLang,h as getAvailableLangs,$ as initI18n,T as setGlobalLang,i as t};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IHsgZ2V0TmVzdGVkVmFsdWUgfSBmcm9tICdAbGF6eS1ib3QvY29yZS91dGlscy9oZWxwZXJzJztcbmltcG9ydCB7IGludGVycG9sYXRlU3RyaW5nIH0gZnJvbSAnQGxhenktYm90L2NvcmUvdXRpbHMvaGVscGVycyc7XG5pbXBvcnQgcGx1Z2luTWFuYWdlciBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9wbHVnaW4vaW5kZXgnO1xuaW1wb3J0IGxvZ2dlciBmcm9tICdAbGF6eS1ib3QvY29yZS91dGlscy9sb2dnZXInO1xuaW1wb3J0IGVudiBmcm9tICdAbGF6eS1ib3QvY29yZS9zZXJ2aWNlcy9lbnYvaW5kZXgnO1xuaW1wb3J0IGZzIGZyb20gJ2ZzL3Byb21pc2VzJztcbmltcG9ydCBwYXRoIGZyb20gJ3BhdGgnO1xuZXhwb3J0IGxldCBjdXJyZW50TGFuZyA9IGVudi5ERUZBVUxUX0xBTkc7XG5jb25zdCBjb3JlTGFuZ3VhZ2VzID0gbmV3IE1hcCgpO1xuZXhwb3J0IGNvbnN0IHQgPSBmdW5jdGlvbiAocGF0aEtleSwgcGFyYW1zID0ge30sIGN1c3RvbUxhbmcpIHtcbiAgICBsZXQgbmFtZXNwYWNlID0gJ2NvcmUnO1xuICAgIGxldCBrZXlQYXRoID0gcGF0aEtleTtcbiAgICBpZiAocGF0aEtleS5pbmNsdWRlcygnOicpKSB7XG4gICAgICAgIGNvbnN0IHBhcnRzID0gcGF0aEtleS5zcGxpdCgnOicpO1xuICAgICAgICBuYW1lc3BhY2UgPSBwYXJ0c1swXTtcbiAgICAgICAga2V5UGF0aCA9IHBhcnRzWzFdO1xuICAgIH1cbiAgICBjb25zdCBsYW5nQ29kZSA9IGN1c3RvbUxhbmcgfHwgY3VycmVudExhbmc7XG4gICAgbGV0IGxhbmdEYXRhO1xuICAgIGlmIChuYW1lc3BhY2UgPT09ICdjb3JlJykge1xuICAgICAgICBsYW5nRGF0YSA9IGNvcmVMYW5ndWFnZXMuZ2V0KGxhbmdDb2RlKTtcbiAgICAgICAgaWYgKCFsYW5nRGF0YSkge1xuICAgICAgICAgICAgbGFuZ0RhdGEgPSBjb3JlTGFuZ3VhZ2VzLmdldCgnZW4nKSB8fCB7fTtcbiAgICAgICAgfVxuICAgIH1cbiAgICBlbHNlIHtcbiAgICAgICAgbGFuZ0RhdGEgPSBwbHVnaW5NYW5hZ2VyLmxhbmd1YWdlcy5nZXQoYCR7bmFtZXNwYWNlfToke2xhbmdDb2RlfWApO1xuICAgICAgICBpZiAoIWxhbmdEYXRhKSB7XG4gICAgICAgICAgICBsYW5nRGF0YSA9IHBsdWdpbk1hbmFnZXIubGFuZ3VhZ2VzLmdldChgJHtuYW1lc3BhY2V9OmVuYCkgfHwge307XG4gICAgICAgIH1cbiAgICB9XG4gICAgY29uc3QgdGV4dFRlbXBsYXRlID0gZ2V0TmVzdGVkVmFsdWUobGFuZ0RhdGEsIGtleVBhdGgpO1xuICAgIGlmICh0eXBlb2YgdGV4dFRlbXBsYXRlID09PSAnc3RyaW5nJykge1xuICAgICAgICByZXR1cm4gaW50ZXJwb2xhdGVTdHJpbmcodGV4dFRlbXBsYXRlLCBwYXJhbXMpO1xuICAgIH1cbiAgICByZXR1cm4gKHBhdGhLZXkuaW5jbHVkZXMoJzonKSkgPyBwYXRoS2V5LnNwbGl0KCc6JylbMV0gOiBwYXRoS2V5O1xufTtcbmFzeW5jIGZ1bmN0aW9uIGxvYWRDb3JlTGFuZ3MoKSB7XG4gICAgY29uc3QgY29yZUxhbmdEaXIgPSBwYXRoLmpvaW4ocHJvY2Vzcy5jd2QoKSwgJ2NvcmUnLCAnbGFuZycpO1xuICAgIHRyeSB7XG4gICAgICAgIGNvbnN0IGZpbGVzID0gYXdhaXQgZnMucmVhZGRpcihjb3JlTGFuZ0Rpcik7XG4gICAgICAgIGF3YWl0IFByb21pc2UuYWxsKGZpbGVzLm1hcChhc3luYyAoZmlsZSkgPT4ge1xuICAgICAgICAgICAgaWYgKGZpbGUuZW5kc1dpdGgoJy5qc29uJykpIHtcbiAgICAgICAgICAgICAgICB0cnkge1xuICAgICAgICAgICAgICAgICAgICBjb25zdCBsYW5nQ29kZSA9IGZpbGUucmVwbGFjZSgnLmpzb24nLCAnJyk7XG4gICAgICAgICAgICAgICAgICAgIGNvbnN0IHJhd0pzb24gPSBhd2FpdCBmcy5yZWFkRmlsZShwYXRoLmpvaW4oY29yZUxhbmdEaXIsIGZpbGUpLCAndXRmLTgnKTtcbiAgICAgICAgICAgICAgICAgICAgY29uc3QgbGFuZ0RhdGEgPSBKU09OLnBhcnNlKHJhd0pzb24pO1xuICAgICAgICAgICAgICAgICAgICBjb3JlTGFuZ3VhZ2VzLnNldChsYW5nQ29kZSwgbGFuZ0RhdGEpO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICBjYXRjaCAoZXJyKSB7XG4gICAgICAgICAgICAgICAgICAgIGxvZ2dlci5mYXRhbCgnW2kxOG5dJywgdCgnaTE4bi5sb2FkX2ZhaWxlZCcsIHsgZmlsZSB9KSk7XG4gICAgICAgICAgICAgICAgICAgIHByb2Nlc3MuZXhpdCgxKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9XG4gICAgICAgIH0pKTtcbiAgICB9XG4gICAgY2F0Y2ggKGVycikge1xuICAgICAgICBsb2dnZXIuZmF0YWwoJ1tpMThuXScsIHQoJ2kxOG4uZm9sZGVyX25vdF9mb3VuZCcsIHsgZGlyOiBjb3JlTGFuZ0RpciB9KSk7XG4gICAgICAgIHByb2Nlc3MuZXhpdCgxKTtcbiAgICB9XG59XG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gc2V0R2xvYmFsTGFuZyhuZXdMYW5nKSB7XG4gICAgdHJ5IHtcbiAgICAgICAgY3VycmVudExhbmcgPSBuZXdMYW5nO1xuICAgICAgICBlbnYuREVGQVVMVF9MQU5HID0gbmV3TGFuZztcbiAgICAgICAgY29uc3QgZW52UGF0aCA9IHBhdGgucmVzb2x2ZShwcm9jZXNzLmN3ZCgpLCAnLmVudicpO1xuICAgICAgICBsZXQgZW52Q29udGVudCA9IGF3YWl0IGZzLnJlYWRGaWxlKGVudlBhdGgsICd1dGYtOCcpLmNhdGNoKCgpID0+ICcnKTtcbiAgICAgICAgY29uc3QgcmVnZXggPSAvXkRFRkFVTFRfTEFORz0uKiQvbTtcbiAgICAgICAgaWYgKHJlZ2V4LnRlc3QoZW52Q29udGVudCkpIHtcbiAgICAgICAgICAgIGVudkNvbnRlbnQgPSBlbnZDb250ZW50LnJlcGxhY2UocmVnZXgsIGBERUZBVUxUX0xBTkc9JHtuZXdMYW5nfWApO1xuICAgICAgICB9XG4gICAgICAgIGVsc2Uge1xuICAgICAgICAgICAgZW52Q29udGVudCArPSBgXFxuREVGQVVMVF9MQU5HPSR7bmV3TGFuZ31gO1xuICAgICAgICB9XG4gICAgICAgIGF3YWl0IGZzLndyaXRlRmlsZShlbnZQYXRoLCBlbnZDb250ZW50LCAndXRmLTgnKTtcbiAgICAgICAgbG9nZ2VyLnJlYWR5KCdbaTE4bl0nLCB0KCdpMThuLmxhbmdfY2hhbmdlZCcsIHsgbGFuZzogbmV3TGFuZyB9KSk7XG4gICAgICAgIHJldHVybiB0cnVlO1xuICAgIH1cbiAgICBjYXRjaCAoZXJyKSB7XG4gICAgICAgIGxvZ2dlci5lcnJvcignW2kxOG5dJywgdCgnaTE4bi5sYW5nX2NoYW5nZV9mYWlsZWQnLCB7XG4gICAgICAgICAgICBsYW5nOiBuZXdMYW5nLFxuICAgICAgICAgICAgZXJyb3I6IGVycj8ubWVzc2FnZSA/PyBlcnIsXG4gICAgICAgIH0pKTtcbiAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgIH1cbn1cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBpbml0STE4bigpIHtcbiAgICBhd2FpdCBsb2FkQ29yZUxhbmdzKCk7XG4gICAgbG9nZ2VyLnN1Y2Nlc3MoJ1tpMThuXScsIHQoJ2kxOG4uaW5pdGlhbGl6ZWQnKSk7XG59XG5leHBvcnQgY29uc3QgZ2V0QXZhaWxhYmxlTGFuZ3MgPSAoKSA9PiBBcnJheS5mcm9tKGNvcmVMYW5ndWFnZXMua2V5cygpKTtcbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLE9BQVMsa0JBQUFBLE1BQXNCLCtCQUMvQixPQUFTLHFCQUFBQyxNQUF5QiwrQkFDbEMsT0FBT0MsTUFBbUIsdUNBQzFCLE9BQU9DLE1BQVksOEJBQ25CLE9BQU9D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YyxFQUNwQmhCLEVBQU8sUUFBUSxTQUFVTSxFQUFFLGtCQUFrQixDQUFDLENBQ2xELENBQ08sTUFBTXNCLEVBQW9CLElBQU0sTUFBTSxLQUFLdkIsRUFBYyxLQUFLLENBQUMiLAogICJuYW1lcyI6IFsiZ2V0TmVzdGVkVmFsdWUiLCAiaW50ZXJwb2xhdGVTdHJpbmciLCAicGx1Z2luTWFuYWdlciIsICJsb2dnZXIiLCAiZW52IiwgImZzIiwgInBhdGgiLCAiY3VycmVudExhbmciLCAiY29yZUxhbmd1YWdlcyIsICJ0IiwgInBhdGhLZXkiLCAicGFyYW1zIiwgImN1c3RvbUxhbmciLCAibmFtZXNwYWNlIiwgImtleVBhdGgiLCAicGFydHMiLCAibGFuZ0NvZGUiLCAibGFuZ0RhdGEiLCAidGV4dFRlbXBsYXRlIiwgImxvYWRDb3JlTGFuZ3MiLCAiY29yZUxhbmdEaXIiLCAiZmlsZXMiLCAiZmlsZSIsICJyYXdKc29uIiwgInNldEdsb2JhbExhbmciLCAibmV3TGFuZyIsICJlbnZQYXRoIiwgImVudkNvbnRlbnQiLCAicmVnZXgiLCAiZXJyIiwgImluaXRJMThuIiwgImdldEF2YWlsYWJsZUxhbmdzIl0KfQo=
+import { getNestedValue } from '@lazy/core/utils/helpers';
+import { interpolateString } from '@lazy/core/utils/helpers';
+import pluginManager from '@lazy/core/services/plugin/index';
+import logger from '@lazy/core/utils/logger';
+import env from '@lazy/core/services/env/index';
+import fs from 'fs/promises';
+import path from 'path';
+export let currentLang = env.DEFAULT_LANG;
+const coreLanguages = new Map();
+export const t = function (pathKey, params = {}, customLang) {
+    let namespace = 'core';
+    let keyPath = pathKey;
+    if (pathKey.includes(':')) {
+        const parts = pathKey.split(':');
+        namespace = parts[0];
+        keyPath = parts[1];
+    }
+    const langCode = customLang || currentLang;
+    let langData;
+    if (namespace === 'core') {
+        langData = coreLanguages.get(langCode);
+        if (!langData) {
+            langData = coreLanguages.get('en') || {};
+        }
+    }
+    else {
+        langData = pluginManager.languages.get(`${namespace}:${langCode}`);
+        if (!langData) {
+            langData = pluginManager.languages.get(`${namespace}:en`) || {};
+        }
+    }
+    const textTemplate = getNestedValue(langData, keyPath);
+    if (typeof textTemplate === 'string') {
+        return interpolateString(textTemplate, params);
+    }
+    return pathKey.includes(':') ? pathKey.split(':')[1] : pathKey;
+};
+async function loadCoreLangs() {
+    const coreLangDir = path.join(process.cwd(), 'core', 'lang');
+    try {
+        const files = await fs.readdir(coreLangDir);
+        await Promise.all(files.map(async (file) => {
+            if (file.endsWith('.json')) {
+                try {
+                    const langCode = file.replace('.json', '');
+                    const rawJson = await fs.readFile(path.join(coreLangDir, file), 'utf-8');
+                    const langData = JSON.parse(rawJson);
+                    coreLanguages.set(langCode, langData);
+                }
+                catch (err) {
+                    logger.fatal('[i18n]', t('i18n.load_failed', { file }));
+                    process.exit(1);
+                }
+            }
+        }));
+    }
+    catch (err) {
+        logger.fatal('[i18n]', t('i18n.folder_not_found', { dir: coreLangDir }));
+        process.exit(1);
+    }
+}
+export async function setGlobalLang(newLang) {
+    try {
+        currentLang = newLang;
+        env.DEFAULT_LANG = newLang;
+        const envPath = path.resolve(process.cwd(), '.env');
+        let envContent = await fs.readFile(envPath, 'utf-8').catch(() => '');
+        const regex = /^DEFAULT_LANG=.*$/m;
+        if (regex.test(envContent)) {
+            envContent = envContent.replace(regex, `DEFAULT_LANG=${newLang}`);
+        }
+        else {
+            envContent += `\nDEFAULT_LANG=${newLang}`;
+        }
+        await fs.writeFile(envPath, envContent, 'utf-8');
+        logger.ready('[i18n]', t('i18n.lang_changed', { lang: newLang }));
+        return true;
+    }
+    catch (err) {
+        logger.error('[i18n]', t('i18n.lang_change_failed', {
+            lang: newLang,
+            error: err?.message ?? err,
+        }));
+        return false;
+    }
+}
+export async function initI18n() {
+    await loadCoreLangs();
+    logger.success('[i18n]', t('i18n.initialized'));
+}
+export const getAvailableLangs = () => Array.from(coreLanguages.keys());

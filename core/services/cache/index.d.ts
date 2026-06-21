@@ -1,5 +1,5 @@
-import { LruDriver } from '@lazy-bot/core/services/cache/lru';
-import { RedisDriver } from '@lazy-bot/core/services/cache/redis';
+import { LruDriver } from '@lazy/core/services/cache/lru';
+import { RedisDriver } from '@lazy/core/services/cache/redis';
 declare let cacheInstance: LruDriver | RedisDriver;
 export declare const initCache: () => void;
 export declare class CacheService {

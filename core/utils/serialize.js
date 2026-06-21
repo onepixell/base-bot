@@ -1,4 +1,4 @@
-import { normalizeMessageContent, jidNormalizedUser, isJidGroup, getContentType, downloadMediaMessage, isPnUser, isLidUser, } from 'baileys';
+import { normalizeMessageContent, jidNormalizedUser, isJidGroup, getContentType, downloadMediaMessage, isPnUser, isLidUser, getDevice, } from 'baileys';
 const MEDIA_TYPE = [
     'imageMessage',
     'videoMessage',
@@ -45,7 +45,9 @@ export class MessageContext {
         return await this.#sock.sendMessage(this.chat, { sticker }, { quoted: this.#raw });
     }
     async react(emoji) {
-        return await this.#sock.sendMessage(this.chat, { react: { text: emoji, key: this.key } });
+        return await this.#sock.sendMessage(this.chat, {
+            react: { text: emoji, key: this.key },
+        });
     }
     async delete() {
         return await this.#sock.sendMessage(this.chat, { delete: this.key });
@@ -58,11 +60,11 @@ export class MessageContext {
         }
         return await downloadMediaMessage(this.#raw, 'buffer', {}, {
             logger: this.#sock.ws.config.logger,
-            reuploadRequest: this.#sock.updateMediaMessage
+            reuploadRequest: this.#sock.updateMediaMessage,
         });
     }
 }
-export default async function ({ id, sock, WAMessage }) {
+export default async function ({ id, sock, WAMessage, }) {
     const normalizedMessages = {
         ...WAMessage,
         message: normalizeMessageContent(WAMessage.message),
@@ -72,7 +74,9 @@ export default async function ({ id, sock, WAMessage }) {
     const botPn = jidNormalizedUser(isPnUser(sock.user.id) ? sock.user.id : sock.user.phoneNumber);
     const botLid = jidNormalizedUser(isLidUser(sock.user.id) ? sock.user.id : sock.user.lid);
     const isGroup = isJidGroup(chat) || false;
-    const groupMetadata = isGroup ? await sock.getGroupCache(chat) : null;
+    const groupMetadata = isGroup
+        ? await sock.getGroupCache(chat)
+        : null;
     const senderLid = decodeSender(key, 'lid');
     const senderPn = decodeSender(key, 'pn');
     const sender = key.addressingMode === 'lid' ? senderLid : senderPn;
@@ -86,6 +90,7 @@ export default async function ({ id, sock, WAMessage }) {
         key,
         chat,
         fromMe: key.fromMe,
+        device: getDevice(key.id || ''),
         flags: {
             fromMe: key.fromMe,
             isGroup,
@@ -112,8 +117,15 @@ export default async function ({ id, sock, WAMessage }) {
         },
         permissions: {
             sender: {
-                superAdmin: isGroup ? IsSender(sender, groupMetadata.participants, ['superadmin']) : false,
-                admin: isGroup ? IsSender(sender, groupMetadata.participants, ['superadmin', 'admin']) : false,
+                superAdmin: isGroup
+                    ? IsSender(sender, groupMetadata.participants, ['superadmin'])
+                    : false,
+                admin: isGroup
+                    ? IsSender(sender, groupMetadata.participants, [
+                        'superadmin',
+                        'admin',
+                    ])
+                    : false,
             },
             bot: {
                 superAdmin: isGroup
@@ -122,7 +134,7 @@ export default async function ({ id, sock, WAMessage }) {
                 admin: isGroup
                     ? IsSender(groupMetadata.addressingMode === 'lid' ? botLid : botPn, groupMetadata.participants, ['superadmin', 'admin'])
                     : false,
-            }
+            },
         },
         body: {
             mtype,
@@ -144,10 +156,12 @@ const decodeSender = (key, type) => {
     let sender;
     if (isJidGroup(key.remoteJid)) {
         if (type === 'lid') {
-            sender = key.addressingMode === 'lid' ? key.participant : key.participantAlt;
+            sender =
+                key.addressingMode === 'lid' ? key.participant : key.participantAlt;
         }
         else if (type === 'pn') {
-            sender = key.addressingMode === 'pn' ? key.participant : key.participantAlt;
+            sender =
+                key.addressingMode === 'pn' ? key.participant : key.participantAlt;
         }
     }
     else {
@@ -192,7 +206,9 @@ const extractMessageText = (m) => {
     else if (type === 'documentMessage') {
         return msg.documentMessage.caption || '';
     }
-    else if (type === 'viewOnceMessage' || type === 'viewOnceMessageV2' || type === 'viewOnceMessageV2Extension') {
+    else if (type === 'viewOnceMessage' ||
+        type === 'viewOnceMessageV2' ||
+        type === 'viewOnceMessageV2Extension') {
         return extractMessageText(msg[type].message);
     }
     else if (type === 'ephemeralMessage') {
@@ -251,7 +267,8 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
     const keyQuoted = {
         remoteJid: isGroup ? key.remoteJid : contextInfo.participant,
         remoteJidAlt: isGroup ? key.remoteJidAlt : undefined,
-        fromMe: (contextInfo.participant === jidNormalizedUser(sock?.user?.id) || contextInfo.participant === jidNormalizedUser(sock?.user?.lid)),
+        fromMe: contextInfo.participant === jidNormalizedUser(sock?.user?.id) ||
+            contextInfo.participant === jidNormalizedUser(sock?.user?.lid),
         id: contextInfo.stanzaId,
         participant: isGroup ? contextInfo.participant : undefined,
         participantAlt: undefined,
@@ -266,7 +283,8 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
             isGroup,
             isText: type === 'conversation' || type === 'extendedTextMessage',
             isSticker: type === 'stickerMessage',
-            isStickerAnimated: type === 'stickerMessage' && !!quotedMessage?.stickerMessage?.isAnimated,
+            isStickerAnimated: type === 'stickerMessage' &&
+                !!quotedMessage?.stickerMessage?.isAnimated,
             isImage: type === 'imageMessage',
             isVideo: type === 'videoMessage',
             isAudio: type === 'audioMessage',
@@ -276,6 +294,7 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
         sender: {
             lid: decodeSender(keyQuoted, 'lid'),
             pn: decodeSender(keyQuoted, 'pn'),
+            device: getDevice(keyQuoted.id || ''),
         },
         msg: {
             mtype: type,
@@ -295,8 +314,8 @@ const getQuoted = ({ key, mtype, message, sock, }) => {
             }
             return await downloadMediaMessage(target, 'buffer', {}, {
                 logger: sock.ws.config.logger,
-                reuploadRequest: sock.updateMediaMessage
+                reuploadRequest: sock.updateMediaMessage,
             });
-        }
+        },
     };
 };

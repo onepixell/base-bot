@@ -1,25 +1,39 @@
 import { curve } from 'libsignal';
 import { randomBytes, randomUUID } from 'node:crypto';
-import { db } from '@lazy-bot/core/services/database/index';
+import { db } from '@lazy/core/services/database/index';
 const useKnexAuthState = async (params) => {
     if (!params.session) {
         throw new Error('Session name is required.');
     }
     const tableName = params.tableName || 'devices_auth';
     const readData = async (id) => {
-        const record = await db.table(tableName).where('session', params.session).andWhere('key', id).first();
+        const record = await db
+            .table(tableName)
+            .where('session', params.session)
+            .andWhere('key', id)
+            .first();
         if (!record || !record.value) {
             return null;
         }
-        const creds = typeof record.value === 'object' ? JSON.stringify(record.value) : record.value;
+        const creds = typeof record.value === 'object'
+            ? JSON.stringify(record.value)
+            : record.value;
         const credsParsed = JSON.parse(creds, BufferJSON.reviver);
         return credsParsed;
     };
     const writeData = async (id, value) => {
         const valueFixed = JSON.stringify(value, BufferJSON.replacer);
-        const record = await db.table(tableName).where('session', params.session).andWhere('key', id).first();
+        const record = await db
+            .table(tableName)
+            .where('session', params.session)
+            .andWhere('key', id)
+            .first();
         if (record) {
-            await db.table(tableName).where('session', params.session).andWhere('key', id).update({
+            await db
+                .table(tableName)
+                .where('session', params.session)
+                .andWhere('key', id)
+                .update({
                 value: valueFixed,
             });
         }
@@ -32,10 +46,18 @@ const useKnexAuthState = async (params) => {
         }
     };
     const removeData = async (id) => {
-        await db.table(tableName).where('session', params.session).andWhere('key', id).delete();
+        await db
+            .table(tableName)
+            .where('session', params.session)
+            .andWhere('key', id)
+            .delete();
     };
     const clearAll = async () => {
-        await db.table(tableName).where('session', params.session).andWhereNot('key', 'creds').delete();
+        await db
+            .table(tableName)
+            .where('session', params.session)
+            .andWhereNot('key', 'creds')
+            .delete();
     };
     const removeAll = async () => {
         await db.table(tableName).where('session', params.session).delete();
@@ -95,7 +117,9 @@ const generateKeyPair = () => {
     };
 };
 const generateSignalPubKey = (pubKey) => {
-    return pubKey.length === 33 ? pubKey : Buffer.concat([Buffer.from([5]), pubKey]);
+    return pubKey.length === 33
+        ? pubKey
+        : Buffer.concat([Buffer.from([5]), pubKey]);
 };
 const sign = (privateKey, buf) => {
     return curve.calculateSignature(privateKey, buf);

@@ -1,2 +1,21 @@
-async function t(e){await e.schema.hasTable("store_messages")||await e.schema.createTable("store_messages",s=>{s.string("id").primary(),s.string("chat_jid").notNullable(),s.string("sender_jid").nullable(),s.string("mtype").nullable(),s.text("text_content").nullable(),s.json("raw_message").notNullable(),s.string("status").defaultTo("received"),s.timestamp("timestamp").notNullable(),s.index(["chat_jid"]),s.index(["sender_jid"]),s.index(["timestamp"])})}async function n(e){await e.schema.dropTableIfExists("store_messages")}export{n as down,t as up};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwKGtuZXgpIHtcbiAgICBjb25zdCBoYXNUYWJsZSA9IGF3YWl0IGtuZXguc2NoZW1hLmhhc1RhYmxlKCdzdG9yZV9tZXNzYWdlcycpO1xuICAgIGlmICghaGFzVGFibGUpIHtcbiAgICAgICAgYXdhaXQga25leC5zY2hlbWEuY3JlYXRlVGFibGUoJ3N0b3JlX21lc3NhZ2VzJywgKHRhYmxlKSA9PiB7XG4gICAgICAgICAgICB0YWJsZS5zdHJpbmcoJ2lkJykucHJpbWFyeSgpO1xuICAgICAgICAgICAgdGFibGUuc3RyaW5nKCdjaGF0X2ppZCcpLm5vdE51bGxhYmxlKCk7XG4gICAgICAgICAgICB0YWJsZS5zdHJpbmcoJ3NlbmRlcl9qaWQnKS5udWxsYWJsZSgpO1xuICAgICAgICAgICAgdGFibGUuc3RyaW5nKCdtdHlwZScpLm51bGxhYmxlKCk7XG4gICAgICAgICAgICB0YWJsZS50ZXh0KCd0ZXh0X2NvbnRlbnQnKS5udWxsYWJsZSgpO1xuICAgICAgICAgICAgdGFibGUuanNvbigncmF3X21lc3NhZ2UnKS5ub3ROdWxsYWJsZSgpO1xuICAgICAgICAgICAgdGFibGUuc3RyaW5nKCdzdGF0dXMnKS5kZWZhdWx0VG8oJ3JlY2VpdmVkJyk7XG4gICAgICAgICAgICB0YWJsZS50aW1lc3RhbXAoJ3RpbWVzdGFtcCcpLm5vdE51bGxhYmxlKCk7XG4gICAgICAgICAgICB0YWJsZS5pbmRleChbJ2NoYXRfamlkJ10pO1xuICAgICAgICAgICAgdGFibGUuaW5kZXgoWydzZW5kZXJfamlkJ10pO1xuICAgICAgICAgICAgdGFibGUuaW5kZXgoWyd0aW1lc3RhbXAnXSk7XG4gICAgICAgIH0pO1xuICAgIH1cbn1cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkb3duKGtuZXgpIHtcbiAgICBhd2FpdCBrbmV4LnNjaGVtYS5kcm9wVGFibGVJZkV4aXN0cygnc3RvcmVfbWVzc2FnZXMnKTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLGVBQXNCQSxFQUFHQyxFQUFNLENBQ1YsTUFBTUEsRUFBSyxPQUFPLFNBQVMsZ0JBQWdCLEdBRXhELE1BQU1BLEVBQUssT0FBTyxZQUFZLGlCQUFtQkMsR0FBVSxDQUN2REEsRUFBTSxPQUFPLElBQUksRUFBRSxRQUFRLEVBQzNCQSxFQUFNLE9BQU8sVUFBVSxFQUFFLFlBQVksRUFDckNBLEVBQU0sT0FBTyxZQUFZLEVBQUUsU0FBUyxFQUNwQ0EsRUFBTSxPQUFPLE9BQU8sRUFBRSxTQUFTLEVBQy9CQSxFQUFNLEtBQUssY0FBYyxFQUFFLFNBQVMsRUFDcENBLEVBQU0sS0FBSyxhQUFhLEVBQUUsWUFBWSxFQUN0Q0EsRUFBTSxPQUFPLFFBQVEsRUFBRSxVQUFVLFVBQVUsRUFDM0NBLEVBQU0sVUFBVSxXQUFXLEVBQUUsWUFBWSxFQUN6Q0EsRUFBTSxNQUFNLENBQUMsVUFBVSxDQUFDLEVBQ3hCQSxFQUFNLE1BQU0sQ0FBQyxZQUFZLENBQUMsRUFDMUJBLEVBQU0sTUFBTSxDQUFDLFdBQVcsQ0FBQyxDQUM3QixDQUFDLENBRVQsQ0FDQSxlQUFzQkMsRUFBS0YsRUFBTSxDQUM3QixNQUFNQSxFQUFLLE9BQU8sa0JBQWtCLGdCQUFnQixDQUN4RCIsCiAgIm5hbWVzIjogWyJ1cCIsICJrbmV4IiwgInRhYmxlIiwgImRvd24iXQp9Cg==
+export async function up(knex) {
+    const hasTable = await knex.schema.hasTable('store_messages');
+    if (!hasTable) {
+        await knex.schema.createTable('store_messages', (table) => {
+            table.string('id').primary();
+            table.string('chat_jid').notNullable();
+            table.string('sender_jid').nullable();
+            table.string('mtype').nullable();
+            table.text('text_content').nullable();
+            table.json('raw_message').notNullable();
+            table.string('status').defaultTo('received');
+            table.timestamp('timestamp').notNullable();
+            table.index(['chat_jid']);
+            table.index(['sender_jid']);
+            table.index(['timestamp']);
+        });
+    }
+}
+export async function down(knex) {
+    await knex.schema.dropTableIfExists('store_messages');
+}

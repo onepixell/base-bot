@@ -1,2 +1,16 @@
-async function e(a){await a.schema.hasTable("store_groups")||await a.schema.createTable("store_groups",t=>{t.string("jid").primary(),t.string("subject").nullable(),t.json("metadata").nullable(),t.boolean("is_active").defaultTo(!0),t.timestamp("created_at").defaultTo(a.fn.now()),t.timestamp("updated_at").defaultTo(a.fn.now())})}async function o(a){await a.schema.dropTableIfExists("store_groups")}export{o as down,e as up};
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiPHN0ZGluPiJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwKGtuZXgpIHtcbiAgICBjb25zdCBoYXNUYWJsZSA9IGF3YWl0IGtuZXguc2NoZW1hLmhhc1RhYmxlKCdzdG9yZV9ncm91cHMnKTtcbiAgICBpZiAoIWhhc1RhYmxlKSB7XG4gICAgICAgIGF3YWl0IGtuZXguc2NoZW1hLmNyZWF0ZVRhYmxlKCdzdG9yZV9ncm91cHMnLCAodGFibGUpID0+IHtcbiAgICAgICAgICAgIHRhYmxlLnN0cmluZygnamlkJykucHJpbWFyeSgpO1xuICAgICAgICAgICAgdGFibGUuc3RyaW5nKCdzdWJqZWN0JykubnVsbGFibGUoKTtcbiAgICAgICAgICAgIHRhYmxlLmpzb24oJ21ldGFkYXRhJykubnVsbGFibGUoKTtcbiAgICAgICAgICAgIHRhYmxlLmJvb2xlYW4oJ2lzX2FjdGl2ZScpLmRlZmF1bHRUbyh0cnVlKTtcbiAgICAgICAgICAgIHRhYmxlLnRpbWVzdGFtcCgnY3JlYXRlZF9hdCcpLmRlZmF1bHRUbyhrbmV4LmZuLm5vdygpKTtcbiAgICAgICAgICAgIHRhYmxlLnRpbWVzdGFtcCgndXBkYXRlZF9hdCcpLmRlZmF1bHRUbyhrbmV4LmZuLm5vdygpKTtcbiAgICAgICAgfSk7XG4gICAgfVxufVxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGRvd24oa25leCkge1xuICAgIGF3YWl0IGtuZXguc2NoZW1hLmRyb3BUYWJsZUlmRXhpc3RzKCdzdG9yZV9ncm91cHMnKTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLGVBQXNCQSxFQUFHQyxFQUFNLENBQ1YsTUFBTUEsRUFBSyxPQUFPLFNBQVMsY0FBYyxHQUV0RCxNQUFNQSxFQUFLLE9BQU8sWUFBWSxlQUFpQkMsR0FBVSxDQUNyREEsRUFBTSxPQUFPLEtBQUssRUFBRSxRQUFRLEVBQzVCQSxFQUFNLE9BQU8sU0FBUyxFQUFFLFNBQVMsRUFDakNBLEVBQU0sS0FBSyxVQUFVLEVBQUUsU0FBUyxFQUNoQ0EsRUFBTSxRQUFRLFdBQVcsRUFBRSxVQUFVLEVBQUksRUFDekNBLEVBQU0sVUFBVSxZQUFZLEVBQUUsVUFBVUQsRUFBSyxHQUFHLElBQUksQ0FBQyxFQUNyREMsRUFBTSxVQUFVLFlBQVksRUFBRSxVQUFVRCxFQUFLLEdBQUcsSUFBSSxDQUFDLENBQ3pELENBQUMsQ0FFVCxDQUNBLGVBQXNCRSxFQUFLRixFQUFNLENBQzdCLE1BQU1BLEVBQUssT0FBTyxrQkFBa0IsY0FBYyxDQUN0RCIsCiAgIm5hbWVzIjogWyJ1cCIsICJrbmV4IiwgInRhYmxlIiwgImRvd24iXQp9Cg==
+export async function up(knex) {
+    const hasTable = await knex.schema.hasTable('store_groups');
+    if (!hasTable) {
+        await knex.schema.createTable('store_groups', (table) => {
+            table.string('jid').primary();
+            table.string('subject').nullable();
+            table.json('metadata').nullable();
+            table.boolean('is_active').defaultTo(true);
+            table.timestamp('created_at').defaultTo(knex.fn.now());
+            table.timestamp('updated_at').defaultTo(knex.fn.now());
+        });
+    }
+}
+export async function down(knex) {
+    await knex.schema.dropTableIfExists('store_groups');
+}

@@ -1,4 +1,4 @@
-import { CacheService } from '@lazy-bot/core/services/cache/index';
+import { CacheService } from '@lazy/core/services/cache/index';
 export declare class RateLimiter {
     private cache;
     constructor(cache: CacheService);
