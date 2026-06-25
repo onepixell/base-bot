@@ -1,92 +1,92 @@
 {
   "errors": {
-    "onlyOwner": "Access denied: Owner only.",
-    "groupOnly": "Access denied: Group only.",
-    "quoteRequired": "Please reply to a message.",
-    "targetRequired": "Please specify a target."
+    "onlyOwner": "┌ *ACCESS DENIED*\n › Access denied: Owner only.\n└",
+    "groupOnly": "┌ *ACCESS DENIED*\n › Access denied: Group only.\n└",
+    "quoteRequired": "┌ *ERROR*\n › Please reply to a message.\n└",
+    "targetRequired": "┌ *TARGET REQUIRED*\n › Please specify a target.\n└"
   },
   "ban": {
     "desc": "Manage banned users (list/add/del).",
-    "empty": "No banned users.",
-    "list": "Banned Users:\n{list}",
-    "usage": "Provide a target.\nUsage: {prefix}ban {cmd} 628xxx",
-    "alreadyBanned": "{target} is already banned.",
-    "banned": "{target} has been banned.",
-    "notBanned": "{target} is not banned.",
-    "unbanned": "{target} has been unbanned.",
-    "menu": "Ban Menu\n\n• {prefix}ban list - List banned\n• {prefix}ban add <number/@> - Ban user\n• {prefix}ban del <number/@> - Unban user"
+    "empty": "┌ *EMPTY*\n › No banned users.\n└",
+    "list": "┌ *BANNED USERS*\n{list}\n└",
+    "usage": "┌ *USAGE*\nProvide a target.\n\nUsage: {prefix}ban {cmd} 628xxx\n└",
+    "alreadyBanned": "┌ *INFO*\n › @{target} is already banned.\n└",
+    "banned": "┌ *SUCCESS*\n › @{target} has been banned.\n└",
+    "notBanned": "┌ *INFO*\n › @{target} is not banned.\n└",
+    "unbanned": "┌ *SUCCESS*\n › @{target} has been unbanned.\n└",
+    "menu": "┌ *BAN MENU*\n › {prefix}ban list - List banned\n › {prefix}ban add <number/@> - Ban user\n › {prefix}ban del <number/@> - Unban user\n└"
   },
   "eval": {
     "desc": "Evaluate JavaScript code.",
-    "empty": "Provide JavaScript code to evaluate.",
-    "error": "Error:\n```{error}```"
+    "empty": "┌ *ERROR*\n › Provide JavaScript code to evaluate.\n└",
+    "error": "┌ *ERROR*\n```{error}```\n└"
   },
   "exec": {
     "desc": "Execute terminal command.",
-    "empty": "Provide a command to execute.",
-    "noOutput": "Command executed (no output).",
-    "error": "Error:\n```{error}```"
+    "empty": "┌ *ERROR*\n › Provide a command to execute.\n└",
+    "noOutput": "┌ *SUCCESS*\n › Command executed (no output).\n└",
+    "error": "┌ *ERROR*\n```{error}```\n└"
   },
   "join": {
     "desc": "Join group via invite link.",
-    "usage": "Provide an invite link.\nUsage: {prefix}join https://chat.whatsapp.com/xxx",
-    "success": "Joined group successfully.",
-    "failed": "Failed to join. Invalid link or blocked."
+    "usage": "┌ *USAGE*\nProvide an invite link.\n\nUsage: {prefix}join https://chat.whatsapp.com/xxx\n└",
+    "success": "┌ *SUCCESS*\n › Joined group successfully.\n└",
+    "failed": "┌ *FAILED*\n › Failed to join. Invalid link or blocked.\n└"
   },
   "leave": {
     "desc": "Leave current group.",
-    "goodbye": "Leaving group...",
-    "failed": "Failed to leave."
+    "goodbye": "┌ *GOODBYE*\n › Leaving group...\n└",
+    "failed": "┌ *FAILED*\n › Failed to leave.\n└"
   },
   "mode": {
     "desc": "Set bot mode (public/private).",
-    "success": "Mode set to {mode}.",
-    "menu": "Mode: {mode}\n\n• {prefix}mode public\n• {prefix}mode private"
+    "success": "┌ *MODE SET*\n › Mode set to {mode}.\n└",
+    "menu": "┌ *MODE: {mode}*\n › {prefix}mode public\n › {prefix}mode private\n└"
   },
   "owner": {
     "desc": "Manage bot owners (list/add/del).",
-    "empty": "No owners configured.",
-    "list": "Owners:\n{list}",
-    "usage": "Provide a target.\nUsage: {prefix}owner {cmd} 628xxx",
-    "alreadyOwner": "{target} is already an owner.",
-    "added": "{target} added as owner.",
-    "notOwner": "{target} is not an owner.",
-    "removed": "{target} removed from owners.",
-    "menu": "Owner Menu\n\n• {prefix}owner list - List owners\n• {prefix}owner add <number/@> - Add owner\n• {prefix}owner del <number/@> - Remove owner"
+    "empty": "┌ *EMPTY*\n › No owners configured.\n└",
+    "list": "┌ *OWNERS*\n{list}\n└",
+    "usage": "┌ *USAGE*\nProvide a target.\n\nUsage: {prefix}owner {cmd} 628xxx\n└",
+    "alreadyOwner": "┌ *INFO*\n › @{target} is already an owner.\n└",
+    "added": "┌ *SUCCESS*\n › @{target} added as owner.\n└",
+    "notOwner": "┌ *INFO*\n › @{target} is not an owner.\n└",
+    "removed": "┌ *SUCCESS*\n › @{target} removed from owners.\n└",
+    "menu": "┌ *OWNER MENU*\n › {prefix}owner list - List owners\n › {prefix}owner add <number/@> - Add owner\n › {prefix}owner del <number/@> - Remove owner\n└"
   },
   "prefix": {
     "desc": "Manage bot prefixes (list/add/del).",
-    "empty": "No prefixes configured.",
-    "list": "Prefixes:\n{list}",
-    "usage": "Provide a prefix.\nUsage: {botPrefix}prefix {cmd} !",
-    "tooLong": "Prefix must be < 3 chars.",
-    "alreadyConfigured": "Prefix \"{target}\" already exists.",
-    "added": "\"{target}\" added to prefixes.",
-    "notConfigured": "Prefix \"{target}\" not found.",
-    "removed": "\"{target}\" removed from prefixes.",
-    "menu": "Prefix Menu\n\n• {botPrefix}prefix list - List prefixes\n• {botPrefix}prefix add <char> - Add prefix\n• {botPrefix}prefix del <char> - Remove prefix"
+    "empty": "┌ *EMPTY*\n › No prefixes configured.\n└",
+    "list": "┌ *PREFIXES*\n{list}\n└",
+    "usage": "┌ *USAGE*\nProvide a prefix.\n\nUsage: {botPrefix}prefix {cmd} !\n└",
+    "tooLong": "┌ *ERROR*\n › Prefix must be < 3 chars.\n└",
+    "alreadyConfigured": "┌ *INFO*\n › Prefix \"{target}\" already exists.\n└",
+    "added": "┌ *SUCCESS*\n › \"{target}\" added to prefixes.\n└",
+    "notConfigured": "┌ *INFO*\n › Prefix \"{target}\" not found.\n└",
+    "removed": "┌ *SUCCESS*\n › \"{target}\" removed from prefixes.\n└",
+    "menu": "┌ *PREFIX MENU*\n › {botPrefix}prefix list - List prefixes\n › {botPrefix}prefix add <char> - Add prefix\n › {botPrefix}prefix del <char> - Remove prefix\n└"
   },
   "stats": {
     "desc": "Check bot statistics and ping",
-    "result": "Bot Statistics\n\nPing: {latency}ms\nUptime: {uptime}\nNodeJS: {nodeVersion}\nOS: {os}\nRAM: {ramUsage} / {ramTotal}"
+    "result": "┌ *BOT STATISTICS*\n › Ping: {latency}ms\n › Uptime: {uptime}\n › NodeJS: {nodeVersion}\n › OS: {os}\n › RAM: {ramUsage} / {ramTotal}\n└"
   },
   "fetch": {
     "desc": "Fetch data from a URL",
-    "usage": "Provide a URL.\nUsage: {prefix}fetch https://api.github.com",
-    "error": "Error fetching URL:\n{error}"
+    "usage": "┌ *USAGE*\nProvide a URL.\n\nUsage: {prefix}fetch https://api.github.com\n└",
+    "error": "┌ *ERROR*\nError fetching URL:\n{error}\n└"
   },
   "restart": {
     "desc": "Restart the bot process",
-    "success": "Restarting bot process..."
+    "success": "┌ *RESTARTING*\n › Restarting bot process...\n└"
   },
   "block": {
     "desc": "Block a user on WhatsApp",
-    "success": "{target} has been blocked.",
-    "failed": "Failed to block {target}."
+    "success": "┌ *SUCCESS*\n › @{target} has been blocked.\n└",
+    "failed": "┌ *FAILED*\n › Failed to block @{target}.\n└"
   },
   "unblock": {
     "desc": "Unblock a user on WhatsApp",
-    "success": "{target} has been unblocked.",
-    "failed": "Failed to unblock {target}."
+    "success": "┌ *SUCCESS*\n › @{target} has been unblocked.\n└",
+    "failed": "┌ *FAILED*\n › Failed to unblock @{target}.\n└"
   }
 }

@@ -1,92 +1,92 @@
 {
   "errors": {
-    "onlyOwner": "Akses ditolak: Khusus Owner.",
-    "groupOnly": "Akses ditolak: Khusus Grup.",
-    "quoteRequired": "Balas pesan yang ingin diproses.",
-    "targetRequired": "Tentukan nomor atau @mention target."
+    "onlyOwner": "┌ *AKSES DITOLAK*\n › Khusus Owner.\n└",
+    "groupOnly": "┌ *AKSES DITOLAK*\n › Khusus Grup.\n└",
+    "quoteRequired": "┌ *ERROR*\n › Balas pesan yang ingin diproses.\n└",
+    "targetRequired": "┌ *TARGET DIBUTUHKAN*\n › Tentukan nomor atau @mention target.\n└"
   },
   "ban": {
     "desc": "Kelola pengguna yang diblokir (list/add/del).",
-    "empty": "Tidak ada pengguna yang diblokir.",
-    "list": "Daftar Blokir:\n{list}",
-    "usage": "Masukkan target.\nCara pakai: {prefix}ban {cmd} 628xxx",
-    "alreadyBanned": "{target} sudah diblokir.",
-    "banned": "{target} berhasil diblokir.",
-    "notBanned": "{target} tidak diblokir.",
-    "unbanned": "{target} berhasil dibuka blokirnya.",
-    "menu": "Menu Blokir\n\n• {prefix}ban list - Daftar blokir\n• {prefix}ban add <nomor/@> - Blokir user\n• {prefix}ban del <nomor/@> - Buka blokir"
+    "empty": "┌ *DAFTAR BLOKIR KOSONG*\n › Tidak ada pengguna yang diblokir.\n└",
+    "list": "┌ *DAFTAR BLOKIR*\n{list}\n└",
+    "usage": "┌ *TARGET DIBUTUHKAN*\nMasukkan target.\n\nCara pakai: {prefix}ban {cmd} 628xxx\n└",
+    "alreadyBanned": "┌ *INFO BLOKIR*\n › @{target} sudah diblokir.\n└",
+    "banned": "┌ *BLOKIR BERHASIL*\n › @{target} berhasil diblokir.\n└",
+    "notBanned": "┌ *INFO BLOKIR*\n › @{target} tidak diblokir.\n└",
+    "unbanned": "┌ *BUKA BLOKIR BERHASIL*\n › @{target} berhasil dibuka blokirnya.\n└",
+    "menu": "┌ *MENU BLOKIR*\n › {prefix}ban list - Daftar blokir\n › {prefix}ban add <nomor/@> - Blokir user\n › {prefix}ban del <nomor/@> - Buka blokir\n└"
   },
   "eval": {
     "desc": "Evaluasi kode JavaScript.",
-    "empty": "Masukkan kode JavaScript yang akan dievaluasi.",
-    "error": "Error:\n```{error}```"
+    "empty": "┌ *KOSONG*\n › Masukkan kode JavaScript yang akan dievaluasi.\n└",
+    "error": "┌ *ERROR*\n```{error}```\n└"
   },
   "exec": {
     "desc": "Eksekusi perintah terminal.",
-    "empty": "Masukkan perintah untuk dieksekusi.",
-    "noOutput": "Perintah dieksekusi (tanpa output).",
-    "error": "Error:\n```{error}```"
+    "empty": "┌ *KOSONG*\n › Masukkan perintah untuk dieksekusi.\n└",
+    "noOutput": "┌ *SUKSES*\n › Perintah dieksekusi (tanpa output).\n└",
+    "error": "┌ *ERROR*\n```{error}```\n└"
   },
   "join": {
     "desc": "Bergabung ke grup via link.",
-    "usage": "Masukkan link undangan.\nCara pakai: {prefix}join https://chat.whatsapp.com/xxx",
-    "success": "Berhasil bergabung ke grup.",
-    "failed": "Gagal bergabung. Tautan kedaluwarsa atau dilarang."
+    "usage": "┌ *PENGGUNAAN*\nMasukkan link undangan.\n\nCara pakai: {prefix}join https://chat.whatsapp.com/xxx\n└",
+    "success": "┌ *BERGABUNG*\n › Berhasil bergabung ke grup.\n└",
+    "failed": "┌ *GAGAL*\n › Gagal bergabung. Tautan kedaluwarsa atau dilarang.\n└"
   },
   "leave": {
     "desc": "Keluar dari grup saat ini.",
-    "goodbye": "Keluar dari grup...",
-    "failed": "Gagal keluar dari grup."
+    "goodbye": "┌ *KELUAR*\n › Keluar dari grup...\n└",
+    "failed": "┌ *GAGAL*\n › Gagal keluar dari grup.\n└"
   },
   "mode": {
     "desc": "Atur mode bot (public/private).",
-    "success": "Mode diubah ke {mode}.",
-    "menu": "Mode aktif: {mode}\n\n• {prefix}mode public\n• {prefix}mode private"
+    "success": "┌ *MODE DIUBAH*\n › Mode diubah ke {mode}.\n└",
+    "menu": "┌ *MODE AKTIF: {mode}*\n › {prefix}mode public\n › {prefix}mode private\n└"
   },
   "owner": {
     "desc": "Kelola owner bot (list/add/del).",
-    "empty": "Belum ada owner yang didaftarkan.",
-    "list": "Daftar Owner:\n{list}",
-    "usage": "Masukkan target.\nCara pakai: {prefix}owner {cmd} 628xxx",
-    "alreadyOwner": "{target} sudah menjadi owner.",
-    "added": "{target} ditambahkan sebagai owner.",
-    "notOwner": "{target} bukan owner.",
-    "removed": "{target} dihapus dari owner.",
-    "menu": "Menu Owner\n\n• {prefix}owner list - Daftar owner\n• {prefix}owner add <nomor/@> - Tambah owner\n• {prefix}owner del <nomor/@> - Hapus owner"
+    "empty": "┌ *OWNER KOSONG*\n › Belum ada owner yang didaftarkan.\n└",
+    "list": "┌ *DAFTAR OWNER*\n{list}\n└",
+    "usage": "┌ *TARGET DIBUTUHKAN*\nMasukkan target.\n\nCara pakai: {prefix}owner {cmd} 628xxx\n└",
+    "alreadyOwner": "┌ *INFO OWNER*\n › @{target} sudah menjadi owner.\n└",
+    "added": "┌ *TAMBAH OWNER BERHASIL*\n › @{target} ditambahkan sebagai owner.\n└",
+    "notOwner": "┌ *INFO OWNER*\n › @{target} bukan owner.\n└",
+    "removed": "┌ *HAPUS OWNER BERHASIL*\n › @{target} dihapus dari owner.\n└",
+    "menu": "┌ *MENU OWNER*\n › {prefix}owner list - Daftar owner\n › {prefix}owner add <nomor/@> - Tambah owner\n › {prefix}owner del <nomor/@> - Hapus owner\n└"
   },
   "prefix": {
     "desc": "Kelola awalan perintah (list/add/del).",
-    "empty": "Belum ada prefix yang didaftarkan.",
-    "list": "Daftar Prefix:\n{list}",
-    "usage": "Masukkan prefix.\nCara pakai: {botPrefix}prefix {cmd} !",
-    "tooLong": "Prefix harus < 3 karakter.",
-    "alreadyConfigured": "Prefix \"{target}\" sudah terdaftar.",
-    "added": "Prefix \"{target}\" berhasil ditambahkan.",
-    "notConfigured": "Prefix \"{target}\" tidak ditemukan.",
-    "removed": "Prefix \"{target}\" berhasil dihapus.",
-    "menu": "Menu Prefix\n\n• {botPrefix}prefix list - Daftar prefix\n• {botPrefix}prefix add <char> - Tambah prefix\n• {botPrefix}prefix del <char> - Hapus prefix"
+    "empty": "┌ *PREFIX KOSONG*\n › Belum ada prefix yang didaftarkan.\n└",
+    "list": "┌ *DAFTAR PREFIX*\n{list}\n└",
+    "usage": "┌ *PREFIX DIBUTUHKAN*\nMasukkan prefix.\n\nCara pakai: {botPrefix}prefix {cmd} !\n└",
+    "tooLong": "┌ *GAGAL*\n › Prefix harus < 3 karakter.\n└",
+    "alreadyConfigured": "┌ *INFO PREFIX*\n › Prefix \"{target}\" sudah terdaftar.\n└",
+    "added": "┌ *PREFIX DITAMBAHKAN*\n › Prefix \"{target}\" berhasil ditambahkan.\n└",
+    "notConfigured": "┌ *INFO PREFIX*\n › Prefix \"{target}\" tidak ditemukan.\n└",
+    "removed": "┌ *PREFIX DIHAPUS*\n › Prefix \"{target}\" berhasil dihapus.\n└",
+    "menu": "┌ *MENU PREFIX*\n › {botPrefix}prefix list - Daftar prefix\n › {botPrefix}prefix add <char> - Tambah prefix\n › {botPrefix}prefix del <char> - Hapus prefix\n└"
   },
   "stats": {
     "desc": "Cek statistik sistem dan ping bot",
-    "result": "Statistik Bot\n\nPing: {latency}ms\nAktif: {uptime}\nNodeJS: {nodeVersion}\nOS: {os}\nRAM: {ramUsage} / {ramTotal}"
+    "result": "┌ *STATISTIK BOT*\n › Ping: {latency}ms\n › Aktif: {uptime}\n › NodeJS: {nodeVersion}\n › OS: {os}\n › RAM: {ramUsage} / {ramTotal}\n└"
   },
   "fetch": {
     "desc": "Ambil data dari URL",
-    "usage": "Masukkan URL.\nCara pakai: {prefix}fetch https://api.github.com",
-    "error": "Gagal mengambil URL:\n{error}"
+    "usage": "┌ *PENGGUNAAN*\nMasukkan URL.\n\nCara pakai: {prefix}fetch https://api.github.com\n└",
+    "error": "┌ *GAGAL*\nGagal mengambil URL:\n{error}\n└"
   },
   "restart": {
     "desc": "Mulai ulang proses bot",
-    "success": "Mulai ulang proses bot..."
+    "success": "┌ *RESTART*\n › Mulai ulang proses bot...\n└"
   },
   "block": {
     "desc": "Blokir pengguna WhatsApp",
-    "success": "{target} berhasil diblokir.",
-    "failed": "Gagal memblokir {target}."
+    "success": "┌ *BLOKIR BERHASIL*\n › @{target} berhasil diblokir.\n└",
+    "failed": "┌ *GAGAL*\n › Gagal memblokir @{target}.\n└"
   },
   "unblock": {
     "desc": "Buka blokir pengguna WhatsApp",
-    "success": "{target} berhasil dibuka blokirnya.",
-    "failed": "Gagal membuka blokir {target}."
+    "success": "┌ *BUKA BLOKIR BERHASIL*\n › @{target} berhasil dibuka blokirnya.\n└",
+    "failed": "┌ *GAGAL*\n › Gagal membuka blokir @{target}.\n└"
   }
 }
