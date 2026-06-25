@@ -9,7 +9,7 @@ const BanConfigSchema = z.object({
 export default defineMiddleware({
   event: 'command',
   priority: -99,
-  handler: async ({ next, payload, plugin }) => {
+  handler: async ({ next, abort, payload, plugin }) => {
     const msg = payload;
 
     const rawConfig = pluginLoader.getConfig(plugin.key, 'ban');
@@ -31,9 +31,11 @@ export default defineMiddleware({
       (senderLid && bannedUsers.includes(senderLid));
 
     if (isBanned) {
-      return;
+      // FIX: was `return;` which returns undefined — runner treats that as "continue"
+      // Must return abort() so the middleware runner actually stops execution
+      return abort(`Blocked banned user: ${senderPn || senderLid}`);
     }
 
-    next();
+    return next();
   },
 });
