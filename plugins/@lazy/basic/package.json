@@ -16,5 +16,7 @@
   "author": "lazy",
   "repository": "https://github.com/onepixell/lazybot-plugin-basic",
   "pluginDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "@lazy/core": "*"
+  }
 }

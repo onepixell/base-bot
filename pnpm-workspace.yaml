@@ -2,3 +2,7 @@ packages:
   - 'core'
   - 'plugins/*/*'
   - 'workspace/*'
+allowBuilds:
+  baileys: true
+  protobufjs: true
+  sqlite3: true
