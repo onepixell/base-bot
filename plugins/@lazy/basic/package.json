@@ -1,7 +1,7 @@
 {
   "name": "@lazy/basic",
   "type": "module",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A highly recommended core plugin for a smarter and feature-rich bot. Includes essential utilities like dynamic prefix management, owner controls, and security features.",
   "keywords": [
     "lazybot",
