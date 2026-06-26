@@ -1,10 +1,10 @@
-
 # Dependencies
 node_modules
 build
 storage/*
 workspace/*
 plugins/*
+package-lock.json
 !plugins/@lazy/basic
 
 # Build tools specific

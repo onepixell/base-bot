@@ -101,6 +101,22 @@ export function truncateText(text, length = 100, end = '...') {
 export function toTitleCase(text) {
     return text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 }
+export function ucfirst(text) {
+    if (!text)
+        return '';
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+export function escapeRegExp(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+export function maskPhoneNumber(phone) {
+    if (!phone)
+        return '';
+    const number = phone.split('@')[0].replace(/\D/g, '');
+    if (number.length <= 6)
+        return phone;
+    return number.substring(0, 5) + '****' + number.substring(number.length - 4);
+}
 export function formatNumber(value, locale = 'id-ID') {
     return new Intl.NumberFormat(locale).format(value);
 }
@@ -119,6 +135,21 @@ export function formatFileSize(bytes, decimals = 2) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+export function getRandomInt(min, max) {
+    const minCeil = Math.ceil(min);
+    const maxFloor = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
+}
+export function isNumeric(value) {
+    if (typeof value === 'number')
+        return !isNaN(value) && isFinite(value);
+    if (typeof value === 'string') {
+        if (value.trim() === '')
+            return false;
+        return !isNaN(Number(value)) && isFinite(Number(value));
+    }
+    return false;
 }
 export function setNestedValue(target, path, value, position = null) {
     const parts = path.split('.');
@@ -158,4 +189,20 @@ export function getNestedValue(target, path) {
         current = current[part];
     }
     return current;
+}
+export function pick(obj, keys) {
+    const result = {};
+    for (const key of keys) {
+        if (obj && Object.prototype.hasOwnProperty.call(obj, key)) {
+            result[key] = obj[key];
+        }
+    }
+    return result;
+}
+export function omit(obj, keys) {
+    const result = { ...obj };
+    for (const key of keys) {
+        delete result[key];
+    }
+    return result;
 }
