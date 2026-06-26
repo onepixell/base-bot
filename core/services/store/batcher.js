@@ -10,8 +10,8 @@ export class MessageBatcher {
         this.batchInterval = intervalMs;
         if (env.STORE_ENABLED && env.STORE_MESSAGES) {
             this._intervalRef = setInterval(() => this.flush(), this.batchInterval);
-            // Prevent the interval from keeping the process alive during shutdown
-            if (this._intervalRef.unref) this._intervalRef.unref();
+            if (this._intervalRef.unref)
+                this._intervalRef.unref();
         }
     }
     add(payload) {
@@ -33,7 +33,6 @@ export class MessageBatcher {
         }
         catch (err) {
             logger.error('[STORE]', `Failed to batch insert messages: ${err.message}`);
-            // FIX: re-queue failed items so they are not silently dropped
             this.buffer = [...itemsToInsert, ...this.buffer];
         }
         finally {

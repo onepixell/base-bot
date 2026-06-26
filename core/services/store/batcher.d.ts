@@ -11,9 +11,11 @@ export declare class MessageBatcher {
     private buffer;
     private isProcessing;
     private batchInterval;
+    private _intervalRef;
     constructor(intervalMs?: number);
     add(payload: MessagePayload): void;
     flush(): Promise<void>;
+    destroy(): void;
 }
 export declare const messageBatcher: MessageBatcher;
 export {};

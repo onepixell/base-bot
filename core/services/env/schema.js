@@ -39,24 +39,32 @@ export const envSchema = z.object({
     STORE_ENABLED: z
         .preprocess((val) => {
         if (typeof val === 'string') {
-            if (val.toLowerCase() === 'true') return true;
-            if (val.toLowerCase() === 'false') return false;
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
         }
         return val;
     }, z.boolean())
         .default(true),
-    STORE_CHATS: z.preprocess((val) => {
+    STORE_CHATS: z
+        .preprocess((val) => {
         if (typeof val === 'string') {
-            if (val.toLowerCase() === 'true') return true;
-            if (val.toLowerCase() === 'false') return false;
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
         }
         return val;
-    }, z.boolean()).default(true),
+    }, z.boolean())
+        .default(true),
     STORE_CONTACTS: z
         .preprocess((val) => {
         if (typeof val === 'string') {
-            if (val.toLowerCase() === 'true') return true;
-            if (val.toLowerCase() === 'false') return false;
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
         }
         return val;
     }, z.boolean())
@@ -64,8 +72,10 @@ export const envSchema = z.object({
     STORE_GROUPS: z
         .preprocess((val) => {
         if (typeof val === 'string') {
-            if (val.toLowerCase() === 'true') return true;
-            if (val.toLowerCase() === 'false') return false;
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
         }
         return val;
     }, z.boolean())
@@ -73,8 +83,10 @@ export const envSchema = z.object({
     STORE_MESSAGES: z
         .preprocess((val) => {
         if (typeof val === 'string') {
-            if (val.toLowerCase() === 'true') return true;
-            if (val.toLowerCase() === 'false') return false;
+            if (val.toLowerCase() === 'true')
+                return true;
+            if (val.toLowerCase() === 'false')
+                return false;
         }
         return val;
     }, z.boolean())
