@@ -38,6 +38,6 @@ export default defineMiddleware({
       });
 
     setNestedValue(msg, 'commands', validCommands);
-    next();
+    return next();
   },
 });

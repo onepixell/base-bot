@@ -77,6 +77,9 @@ export default async function ({ id, sock, WAMessage, }) {
     const groupMetadata = isGroup
         ? await sock.getGroupCache(chat)
         : null;
+    // FIX: getGroupCache may return undefined on network/DB error when isGroup=true
+    // Fallback prevents TypeError on .participants / .addressingMode
+    const safeGroupMeta = groupMetadata ?? { participants: [], addressingMode: 'pn' };
     const senderLid = decodeSender(key, 'lid');
     const senderPn = decodeSender(key, 'pn');
     const sender = key.addressingMode === 'lid' ? senderLid : senderPn;
@@ -118,10 +121,10 @@ export default async function ({ id, sock, WAMessage, }) {
         permissions: {
             sender: {
                 superAdmin: isGroup
-                    ? IsSender(sender, groupMetadata.participants, ['superadmin'])
+                    ? IsSender(sender, safeGroupMeta.participants, ['superadmin'])
                     : false,
                 admin: isGroup
-                    ? IsSender(sender, groupMetadata.participants, [
+                    ? IsSender(sender, safeGroupMeta.participants, [
                         'superadmin',
                         'admin',
                     ])
@@ -129,10 +132,10 @@ export default async function ({ id, sock, WAMessage, }) {
             },
             bot: {
                 superAdmin: isGroup
-                    ? IsSender(groupMetadata.addressingMode === 'lid' ? botLid : botPn, groupMetadata.participants, ['superadmin'])
+                    ? IsSender(safeGroupMeta.addressingMode === 'lid' ? botLid : botPn, safeGroupMeta.participants, ['superadmin'])
                     : false,
                 admin: isGroup
-                    ? IsSender(groupMetadata.addressingMode === 'lid' ? botLid : botPn, groupMetadata.participants, ['superadmin', 'admin'])
+                    ? IsSender(safeGroupMeta.addressingMode === 'lid' ? botLid : botPn, safeGroupMeta.participants, ['superadmin', 'admin'])
                     : false,
             },
         },

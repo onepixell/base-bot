@@ -14,6 +14,6 @@ export default defineMiddleware({
       return abort('Bot is in private mode');
     }
 
-    next();
+    return next();
   },
 });

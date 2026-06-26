@@ -31,6 +31,6 @@ export default defineMiddleware({
 
     setNestedValue(msg, 'permissions.sender.owner', isOwner);
 
-    next();
+    return next();
   },
 });
