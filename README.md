@@ -42,7 +42,13 @@ git clone https://github.com/onepixell/base-bot.git
 cd base-bot
 ```
 
-**2. Install dependencies**
+**2. Configure your env**
+```bash
+cp .env.example .env
+nano .env
+```
+
+**3. Install dependencies**
 ```bash
 npm install
 ```
@@ -78,4 +84,4 @@ During development, plugins are stored in the `workspace/` directory.
 4. Keep the bot running! Modify your code and save. Your changes will apply instantly via the **hot-reloading** system.
 
 ## 📜 License
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/onepixell/base-bot/blob/main/LICENSE) for more information.
